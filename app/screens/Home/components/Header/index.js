@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, SafeAreaView, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { UserAvatar, SvgIcon } from '../../../../components';
+import { UserAvatar, SvgIcon, Label } from '../../../../components';
 
 import styles from './styles';
 
@@ -14,7 +14,7 @@ const Header = () => {
       <View style={styles.container}>
         <View style={styles.userContainer}>
           <UserAvatar label={user.nickname} />
-          <Text style={styles.nickname}>{user.nickname}</Text>
+          <Label style={styles.nickname}>{user.nickname}</Label>
         </View>
         <TouchableOpacity>
           <SvgIcon.Logout width={25} height={25} />

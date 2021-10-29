@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
+import Label from '../Label/';
 import styles from './styles';
 
 const UserAvatar = ({ label }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label[0]}</Text>
+      <Label style={styles.label}>{label[0]}</Label>
     </View>
   );
 };

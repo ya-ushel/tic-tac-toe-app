@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   safe: {
-    backgroundColor: '#5C95FF',
+    backgroundColor: '#0081a7',
   },
   container: {
     flexDirection: 'row',
@@ -12,7 +12,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    backgroundColor: '#5C95FF',
+    backgroundColor: '#0081a7',
     paddingBottom: 10,
   },
   userContainer: {
