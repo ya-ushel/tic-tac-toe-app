@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import {
@@ -11,43 +11,56 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 
-import { axios } from './utils/';
+import { waitForStore } from './utils/';
 import { HomeScreen } from './screens';
-import { signInAnonymously } from './firebase/';
+import { setDoc, signInAnonymously } from './firebase/';
 import store from './store';
+import { login } from './store/redusers/userSlice';
 
 const persistor = persistStore(store);
 
 const App = () => {
+  const [appReady, setAppReady] = useState(false);
   const isDarkMode = useColorScheme() === 'dark';
-  console.log(store.getState());
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
 
   useEffect(() => {
-    getRooms();
-    signInAnonymously();
+    init();
   }, []);
 
-  const getRooms = async () => {
+  const init = async () => {
     try {
-      const res = await axios.get('/rooms/list');
-      console.log('res', res);
-    } catch (e) {
-      console.log(e);
+      await waitForStore();
+      const { user } = store.getState();
+
+      if (!user.data) {
+        const { user: newUser } = await signInAnonymously();
+        const userDocument = {
+          id: newUser.uid,
+          createdAt: Date.now(),
+          nickname:
+            'Player' + Math.floor(Math.random() * (9999 - 1000 + 1) + 1000),
+        };
+
+        await setDoc('users', userDocument.id, userDocument);
+        store.dispatch(login(userDocument));
+      }
+      setAppReady(true);
+    } catch (error) {
+      console.log('init error', error);
     }
   };
 
+  if (!appReady) {
+    return null;
+  }
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-          <HomeScreen />
-        </PersistGate>
-      </Provider>
-    </SafeAreaView>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <HomeScreen />
+      </PersistGate>
+    </Provider>
   );
 };
 

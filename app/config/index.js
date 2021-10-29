@@ -1,5 +1,8 @@
+export const production = true;
 export default {
-  apiUrl: 'http://127.0.0.1:8080/',
+  apiUrl: production
+    ? 'https://tic-tac-toe-1337.herokuapp.com/'
+    : 'http://127.0.0.1:8080/',
   firebaseConfig: {
     apiKey: 'AIzaSyAWBwmQrm7j--gu4smUcxgdhxC0may5Oj0',
     authDomain: 'tic-tac-toe-70f1a.firebaseapp.com',
