@@ -1,11 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import fonts from '../../global/fonts';
+
+const { width, height } = Dimensions.get('screen');
 
 export default StyleSheet.create({
   container: {
     // paddingHorizontal: 20,
     backgroundColor: '#fdfcdc',
+    height: height - 180,
   },
   title: {
     fontSize: 30,
@@ -14,11 +17,50 @@ export default StyleSheet.create({
     marginBottom: 10,
     fontFamily: fonts.semiBold,
   },
-  roomContainer: {
-    marginVertical: 10,
-    paddingVertical: 15,
+  yourRoomTitle: {
+    fontSize: 30,
     paddingHorizontal: 20,
-    borderWidth: 1,
-    paddingBottom: 30,
+    marginTop: 10,
+    fontFamily: fonts.semiBold,
+  },
+  roomContainerShadow: {
+    backgroundColor: '#fdfcdc',
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.2,
+    width: '100%',
+    height: 5,
+    paddingBottom: 10,
+    backgroundColor: '#fdfcdc',
+  },
+  roomContainer: {
+    marginVertical: 2,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    // backgroundColor: '#8ecae6',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  roomName: {
+    fontSize: 16,
+  },
+  roomSettings: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 20,
+  },
+  roomPlayers: {
+    marginRight: 5,
+  },
+  roomPlayerAvatar: {
+    marginHorizontal: 5,
   },
 });

@@ -41,6 +41,9 @@ module.exports = function (api) {
           extensions: ['.js', '.json', '.svg', '.png'],
           alias: {
             fonts: './app/global/fonts',
+            components: './app/components',
+            store: './app/store',
+            actions: './app/actions',
           },
           resolvePath,
         },
