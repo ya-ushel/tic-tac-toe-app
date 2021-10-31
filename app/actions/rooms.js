@@ -11,11 +11,9 @@ const getAllRooms = async () => {
 
 const createRoom = async (name, options) => {
   try {
-    const res = await axios.post('rooms/create', null, {
-      params: {
-        name,
-        options,
-      },
+    const res = await axios.post('rooms/create', {
+      name,
+      options,
     });
     console.log('res', res);
   } catch (error) {
@@ -25,10 +23,8 @@ const createRoom = async (name, options) => {
 
 const leaveRoom = async id => {
   try {
-    const res = await axios.post('rooms/leave', null, {
-      params: {
-        roomId: id,
-      },
+    const res = await axios.post('rooms/leave', {
+      roomId: id,
     });
     console.log(res);
   } catch (error) {
@@ -38,10 +34,8 @@ const leaveRoom = async id => {
 
 const joinRoom = async id => {
   try {
-    const res = await axios.post('rooms/join', null, {
-      params: {
-        roomId: id,
-      },
+    const res = await axios.post('rooms/join', {
+      roomId: id,
     });
     console.log(res);
   } catch (error) {

@@ -2,9 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import fonts from 'fonts';
 
+const containerBackground = 'white';
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#fdfcdc',
+    backgroundColor: containerBackground,
     marginBottom: -30,
     flex: 1,
     alignItems: 'flex-end',
@@ -16,7 +17,7 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
   },
   modal: {
-    backgroundColor: '#0081a7',
+    backgroundColor: '#fdfcdc',
     alignItems: 'flex-start',
     paddingVertical: 20,
     marginHorizontal: -20,

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 import { Button, Label, Select, TextInput, SvgIcon } from 'components';
 import { createRoom } from 'actions/rooms';
+import { socket } from 'utils';
 import styles from './styles';
 
 const CreateRoom = () => {
@@ -27,6 +28,8 @@ const CreateRoom = () => {
       players: values.players,
       timer: values.timer,
     });
+
+    socket.emit('room.created', values);
 
     setLoading(false);
     setModalVisible(false);

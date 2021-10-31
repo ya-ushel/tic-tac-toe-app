@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  useColorScheme,
-} from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 
-import { waitForStore } from './utils/';
+import { setUserOnline } from './actions/user';
+import { waitForStore, initSockets, socket } from './utils/';
 import { HomeScreen } from './screens';
 import { setDoc, signInAnonymously } from './firebase/';
 import store from './store';
@@ -26,6 +21,21 @@ const App = () => {
   useEffect(() => {
     init();
   }, []);
+
+  useEffect(() => {
+    if (appReady) listenSockets();
+  }, [appReady]);
+
+  const listenSockets = async () => {
+    console.log('listenSockets', socket);
+    socket.on('user.joined', data => {
+      console.log('user.joined', data);
+    });
+    socket.on('user.left', data => {
+      console.log('user.left', data);
+    });
+    socket.on('connect', () => console.log('connect appp'));
+  };
 
   const init = async () => {
     try {
@@ -44,6 +54,10 @@ const App = () => {
         await setDoc('users', userDocument.id, userDocument);
         store.dispatch(login(userDocument));
       }
+
+      await initSockets();
+
+      setUserOnline();
       setAppReady(true);
     } catch (error) {
       console.log('init error', error);

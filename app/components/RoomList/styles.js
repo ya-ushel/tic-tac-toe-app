@@ -4,10 +4,11 @@ import fonts from '../../global/fonts';
 
 const { width, height } = Dimensions.get('screen');
 
+const containerBackground = 'white';
 export default StyleSheet.create({
   container: {
     // paddingHorizontal: 20,
-    backgroundColor: '#fdfcdc',
+    backgroundColor: containerBackground,
     height: height - 180,
   },
   title: {
@@ -24,7 +25,7 @@ export default StyleSheet.create({
     fontFamily: fonts.semiBold,
   },
   roomContainerShadow: {
-    backgroundColor: '#fdfcdc',
+    backgroundColor: containerBackground,
   },
   shadow: {
     shadowColor: '#000',
@@ -37,7 +38,7 @@ export default StyleSheet.create({
     width: '100%',
     height: 5,
     paddingBottom: 10,
-    backgroundColor: '#fdfcdc',
+    backgroundColor: containerBackground,
   },
   roomContainer: {
     marginVertical: 2,

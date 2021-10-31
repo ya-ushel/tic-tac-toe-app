@@ -1,6 +1,7 @@
 import { persistStore } from 'redux-persist';
 
 import axios from './axios';
+import { socket, initSockets } from './socket';
 import store from '../store';
 
 const persistor = persistStore(store);
@@ -18,4 +19,4 @@ const waitForStore = () => {
   });
 };
 
-export { axios, waitForStore };
+export { axios, socket, initSockets, waitForStore };

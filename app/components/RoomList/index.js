@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 
 import { Label, SvgIcon, UserAvatar } from '../';
 import { getAllRooms, leaveRoom, joinRoom } from '../../actions/rooms';
+import { socket } from 'utils';
 import Button from '../Button';
 import styles from './styles';
 
@@ -22,7 +23,24 @@ const RoomList = () => {
 
   useEffect(() => {
     getRooms();
+    listenSocketEvents();
   }, []);
+
+  const listenSocketEvents = async () => {
+    socket.on('room.created', data => {
+      console.log('room.created', data);
+      getRooms();
+    });
+    socket.on('room.user-joined', data => {
+      console.log('room.player-joined', data);
+      getRooms();
+    });
+
+    socket.on('room.user-left', data => {
+      console.log('room.user-left', data);
+      getRooms();
+    });
+  };
 
   const toggleUserRoomExpanded = value => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -34,9 +52,8 @@ const RoomList = () => {
     const isUserRoom = r => r.playerList.indexOf(user.id) !== -1;
     const userRoom = rooms.find(r => isUserRoom(r));
 
-    if (rooms.length) {
-      setRooms(rooms.filter(r => !isUserRoom(r)));
-    }
+    setRooms(rooms);
+    // setRooms(rooms.filter(r => !isUserRoom(r)));
 
     if (userRoom) {
       setUserRoom(userRoom);
@@ -48,6 +65,7 @@ const RoomList = () => {
   const renderPlayer = player => {
     return (
       <UserAvatar
+        key={player}
         label="P"
         style={styles.roomPlayerAvatar}
         labelStyle={{ fontSize: 12 }}
@@ -59,7 +77,7 @@ const RoomList = () => {
   const renderRoom = ({ item }) => {
     const onJoin = async () => {
       await joinRoom(item.id);
-      await getRooms();
+      socket.emit('room.user-join', user);
     };
 
     return (
@@ -91,7 +109,7 @@ const RoomList = () => {
   const renderUserRoom = () => {
     const onLeave = async () => {
       await leaveRoom(userRoom.id);
-      await getRooms();
+      socket.emit('room.user-left', user);
     };
 
     return (
@@ -126,7 +144,9 @@ const RoomList = () => {
               </View>
               <View style={{ justifyContent: 'space-between' }}>
                 <View style={styles.roomSettings}>
-                  <Label style={styles.roomPlayers}>2</Label>
+                  <Label style={styles.roomPlayers}>
+                    {userRoom.options?.players || 2}
+                  </Label>
                   <SvgIcon.Players width={20} height={20} />
                 </View>
                 <Button onPress={onLeave}>Leave</Button>
@@ -139,12 +159,11 @@ const RoomList = () => {
     );
   };
 
-  console.log('userRoom', userRoom);
-
   return (
     <View style={styles.container}>
       {userRoom && <View>{renderUserRoom()}</View>}
       <FlatList
+        keyExtractor={(item, index) => item.name + index}
         ListHeaderComponent={() => <Label style={styles.title}>Rooms</Label>}
         data={rooms}
         renderItem={renderRoom}

@@ -44,6 +44,7 @@ module.exports = function (api) {
             components: './app/components',
             store: './app/store',
             actions: './app/actions',
+            utils: './app/utils',
           },
           resolvePath,
         },
