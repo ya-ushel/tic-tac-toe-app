@@ -6,7 +6,7 @@ const containerBackground = 'white';
 export default StyleSheet.create({
   container: {
     backgroundColor: containerBackground,
-    marginBottom: -30,
+    marginBottom: -10,
     flex: 1,
     alignItems: 'flex-end',
     justifyContent: 'center',

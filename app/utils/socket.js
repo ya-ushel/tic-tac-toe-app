@@ -13,12 +13,13 @@ const initSockets = async () => {
     console.log('initSockets', data.id);
 
     socket = io(config.apiUrl, {
+      secure: true,
       transports: ['websocket'],
-      allowUpgrades: false,
       auth: { userId: data.id },
     });
 
     socket.on('connect_error', err => {
+      res();
       console.log('connect_error', err, err.message);
     });
 

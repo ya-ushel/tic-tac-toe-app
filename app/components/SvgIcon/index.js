@@ -5,6 +5,7 @@ import Close from '../../assets/icons/close.svg';
 import ArrowRight from '../../assets/icons/arrow-right.svg';
 import ArrowDown from '../../assets/icons/arrow-down.svg';
 import ArrowUp from '../../assets/icons/arrow-up.svg';
+import ArrowLeft from '../../assets/icons/arrow-left.svg';
 
 export default {
   Logout,
@@ -14,4 +15,5 @@ export default {
   ArrowUp,
   ArrowDown,
   ArrowRight,
+  ArrowLeft,
 };

@@ -14,14 +14,15 @@ import { socket } from 'utils';
 import Button from '../Button';
 import styles from './styles';
 
-const RoomList = () => {
+const RoomList = ({ setScreen, setGameId }) => {
   const [userRoom, setUserRoom] = useState(null);
   const [userRoomExpanded, setUserRoomExpanded] = useState([]);
   const [rooms, setRooms] = useState([]);
 
   const user = useSelector(state => state.user.data);
-
   useEffect(() => {
+    console.log('useEffect listenSocketEvents');
+
     getRooms();
     listenSocketEvents();
   }, []);
@@ -31,6 +32,7 @@ const RoomList = () => {
       console.log('room.created', data);
       getRooms();
     });
+
     socket.on('room.user-joined', data => {
       console.log('room.player-joined', data);
       getRooms();
@@ -75,6 +77,7 @@ const RoomList = () => {
   };
 
   const renderRoom = ({ item }) => {
+    const isUserRoom = item.id === userRoom?.id;
     const onJoin = async () => {
       await joinRoom(item.id);
       socket.emit('room.user-join', user);
@@ -100,41 +103,67 @@ const RoomList = () => {
             <Label style={styles.roomPlayers}>2</Label>
             <SvgIcon.Timer width={20} height={20} />
           </View> */}
-          <Button onPress={onJoin}>Join</Button>
+          {isUserRoom ? (
+            <Label>Your room</Label>
+          ) : (
+            <Button onPress={onJoin}>Join</Button>
+          )}
         </View>
       </View>
     );
   };
 
   const renderUserRoom = () => {
+    const host = userRoom.hostId === user.id;
+    const started = userRoom.status === 'started';
+    console.log('userRoom',userRoom)
+    const onJoin = async () => {
+      setGameId(userRoom.gameId);
+      setScreen('game');
+    };
+
     const onLeave = async () => {
       await leaveRoom(userRoom.id);
-      socket.emit('room.user-left', user);
+      socket.emit('room.leave', user);
+    };
+
+    const onStart = async () => {
+      socket.emit('room.start-game', { roomId: userRoom.id });
     };
 
     return (
       <>
         <View
           style={{
+            alignSelf: 'stretch',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginRight: 20,
+            paddingRight: 20,
           }}>
           <Label style={styles.yourRoomTitle}>Your room</Label>
-          {userRoomExpanded ? (
-            <TouchableOpacity onPress={() => toggleUserRoomExpanded(false)}>
-              <SvgIcon.ArrowUp width={25} height={25} />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => toggleUserRoomExpanded(true)}>
-              <SvgIcon.ArrowDown width={25} height={25} />
-            </TouchableOpacity>
-          )}
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Button color="red" style={{ marginRight: 15 }} onPress={onLeave}>
+              Leave
+            </Button>
+            {userRoomExpanded ? (
+              <TouchableOpacity onPress={() => toggleUserRoomExpanded(false)}>
+                <SvgIcon.ArrowUp width={25} height={25} />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => toggleUserRoomExpanded(true)}>
+                <SvgIcon.ArrowDown width={25} height={25} />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
         <View style={styles.roomContainerShadow}>
           {userRoomExpanded && (
-            <View style={[styles.roomContainer, { borderBottomWidth: 0 }]}>
+            <View
+              style={[
+                styles.roomContainer,
+                { borderBottomWidth: 0, paddingBottom: 10 },
+              ]}>
               <View>
                 <Label style={styles.roomName}>{userRoom.name}</Label>
 
@@ -149,7 +178,19 @@ const RoomList = () => {
                   </Label>
                   <SvgIcon.Players width={20} height={20} />
                 </View>
-                <Button onPress={onLeave}>Leave</Button>
+                {host && (
+                  <View style={{ alignItems: 'flex-end' }}>
+                    {started ? (
+                      <Button style={styles.startButton} onPress={onJoin}>
+                        Join game
+                      </Button>
+                    ) : (
+                      <Button style={styles.startButton} onPress={onStart}>
+                        Start game
+                      </Button>
+                    )}
+                  </View>
+                )}
               </View>
             </View>
           )}

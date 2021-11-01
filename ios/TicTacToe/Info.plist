@@ -32,6 +32,11 @@
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<!--Include to allow HTTP requests-->
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
 			</dict>
 		</dict>
 	</dict>

@@ -21,7 +21,7 @@ export default StyleSheet.create({
   yourRoomTitle: {
     fontSize: 30,
     paddingHorizontal: 20,
-    marginTop: 10,
+    paddingVertical: 10,
     fontFamily: fonts.semiBold,
   },
   roomContainerShadow: {
@@ -45,7 +45,7 @@ export default StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    // backgroundColor: '#8ecae6',
+    borderBottomColor: '#e5e5e5',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -54,8 +54,8 @@ export default StyleSheet.create({
   },
   roomSettings: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'flex-end',
+    alignItems: 'flex-end',
     marginBottom: 20,
   },
   roomPlayers: {
@@ -63,5 +63,10 @@ export default StyleSheet.create({
   },
   roomPlayerAvatar: {
     marginHorizontal: 5,
+  },
+  startButton: {
+    marginTop: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
   },
 });

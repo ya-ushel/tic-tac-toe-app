@@ -22,6 +22,7 @@
     "react-native-modal": "^13.0.0",
     "react-native-svg": "^12.1.1",
     "react-native-svg-transformer": "^0.14.3",
+    "react-native-swiper-flatlist": "^3.0.15",
     "react-redux": "^7.2.6",
     "redux-persist": "^6.0.0",
     "reduxjs-toolkit-persist": "^7.0.7",

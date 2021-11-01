@@ -6,7 +6,7 @@ import { login } from 'store/redusers/userSlice';
 import { RoomList } from 'components';
 import { Header, CreateRoom } from './components/';
 
-const HomeScreen = () => {
+const HomeScreen = ({ setScreen, setGameId }) => {
   const user = useSelector(state => state.user.data);
   const dispatch = useDispatch();
 
@@ -15,11 +15,11 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {}, []);
-  console.log('user', user);
+
   return (
     <View style={{ flex: 1, marginBottom: 30 }}>
       <Header />
-      <RoomList />
+      <RoomList setScreen={setScreen} setGameId={setGameId} />
       <CreateRoom />
     </View>
   );

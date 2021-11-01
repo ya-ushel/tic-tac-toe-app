@@ -7,7 +7,7 @@ import { persistStore } from 'redux-persist';
 
 import { setUserOnline } from './actions/user';
 import { waitForStore, initSockets, socket } from './utils/';
-import { HomeScreen } from './screens';
+import { HomeScreen, GameScreen } from './screens';
 import { setDoc, signInAnonymously } from './firebase/';
 import store from './store';
 import { login } from './store/redusers/userSlice';
@@ -15,6 +15,8 @@ import { login } from './store/redusers/userSlice';
 const persistor = persistStore(store);
 
 const App = () => {
+  const [screen, setScreen] = useState('home');
+  const [gameId, setGameId] = useState(null);
   const [appReady, setAppReady] = useState(false);
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -22,19 +24,20 @@ const App = () => {
     init();
   }, []);
 
-  useEffect(() => {
-    if (appReady) listenSockets();
-  }, [appReady]);
-
   const listenSockets = async () => {
-    console.log('listenSockets', socket);
     socket.on('user.joined', data => {
       console.log('user.joined', data);
     });
+
     socket.on('user.left', data => {
       console.log('user.left', data);
     });
-    socket.on('connect', () => console.log('connect appp'));
+
+    socket.on('room.started', gameId => {
+      setGameId(gameId);
+      setScreen('game');
+      console.log('room.started 1', gameId);
+    });
   };
 
   const init = async () => {
@@ -56,6 +59,7 @@ const App = () => {
       }
 
       await initSockets();
+      await listenSockets();
 
       setUserOnline();
       setAppReady(true);
@@ -67,12 +71,17 @@ const App = () => {
   if (!appReady) {
     return null;
   }
-
+  console.log(screen);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <HomeScreen />
+        {screen === 'home' && (
+          <HomeScreen setScreen={setScreen} setGameId={setGameId} />
+        )}
+        {screen === 'game' && (
+          <GameScreen gameId={gameId} setScreen={setScreen} />
+        )}
       </PersistGate>
     </Provider>
   );
