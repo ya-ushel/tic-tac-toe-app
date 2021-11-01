@@ -116,7 +116,10 @@ const RoomList = ({ setScreen, setGameId }) => {
   const renderUserRoom = () => {
     const host = userRoom.hostId === user.id;
     const started = userRoom.status === 'started';
-    console.log('userRoom',userRoom)
+    const startDisabled =
+      userRoom.options.players !== userRoom.playerList.length;
+
+    console.log(userRoom);
     const onJoin = async () => {
       setGameId(userRoom.gameId);
       setScreen('game');
@@ -178,19 +181,22 @@ const RoomList = ({ setScreen, setGameId }) => {
                   </Label>
                   <SvgIcon.Players width={20} height={20} />
                 </View>
-                {host && (
-                  <View style={{ alignItems: 'flex-end' }}>
-                    {started ? (
-                      <Button style={styles.startButton} onPress={onJoin}>
-                        Join game
-                      </Button>
-                    ) : (
-                      <Button style={styles.startButton} onPress={onStart}>
-                        Start game
-                      </Button>
-                    )}
-                  </View>
-                )}
+
+                <View style={{ alignItems: 'flex-end' }}>
+                  {started && (
+                    <Button style={styles.startButton} onPress={onJoin}>
+                      Join game
+                    </Button>
+                  )}
+                  {host && !started && (
+                    <Button
+                      disabled={startDisabled}
+                      style={styles.startButton}
+                      onPress={onStart}>
+                      Start game
+                    </Button>
+                  )}
+                </View>
               </View>
             </View>
           )}

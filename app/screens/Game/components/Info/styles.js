@@ -5,16 +5,14 @@ import fonts from 'fonts';
 const containerBackground = '#edf6f9';
 export default StyleSheet.create({
   container: {
-    paddingTop: 50,
-    // backgroundColor: containerBackground,
+    // backgroundColor: 'red',
     paddingHorizontal: 10,
-    paddingBottom: 60,
-  },
-  playerContainer: {
-    marginHorizontal: 20,
+    // paddingVertical: 20,
     alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
-  playerName: {
-    marginTop: 5,
+  title: {
+    fontSize: 22,
   },
 });

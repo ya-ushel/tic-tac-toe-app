@@ -1,34 +1,98 @@
-import React, { useRef, useState } from 'react';
-import { TouchableOpacity, View, Dimensions, FlatList } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Animated,
+  TouchableOpacity,
+  View,
+  Dimensions,
+  FlatList,
+  Image,
+} from 'react-native';
 import { useSelector } from 'react-redux';
+import { Shadow } from 'react-native-neomorph-shadows';
 
 import { Button, Label, UserAvatar, TextInput, SvgIcon } from 'components';
-import { createRoom } from 'actions/rooms';
-import { socket } from 'utils';
+import DickPick from 'assets/shapes/hui.jpeg';
 import styles from './styles';
 
-const { width, height } = Dimensions.get('screen');
+const AnimatedShadow = Animated.createAnimatedComponent(Shadow);
+
+const { width } = Dimensions.get('screen');
 const Board = ({ data }) => {
   const user = useSelector(state => state.user.data);
-  console.log(' width, height ', width, height);
+  const [board, setBoard] = useState(new Array(225).fill(0));
+  const shadowColors = { start: '#cdb4db', end: '#a2d2ff' };
+  // const shadowColors = { start: '#f72585', end: '#3a0ca3' };
+
+  const animation = useRef(new Animated.Value(0)).current;
+
+  const shadowColorStyle = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [shadowColors.start, shadowColors.end],
+  });
+  const shadowRadiusStyle = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [35, 25],
+  });
+
+  const shadowStyle = {
+    ...styles.shadow,
+    shadowColor: shadowColorStyle,
+    shadowRadius: shadowRadiusStyle,
+    width,
+    height: width,
+  };
+
+  useEffect(() => {
+    startAnimation(1);
+  }, []);
+
+  const startAnimation = value => {
+    Animated.timing(animation, {
+      toValue: value,
+      useNativeDriver: false,
+      duration: 5000,
+    }).start(() => startAnimation(value === 1 ? 0 : 1));
+  };
+
+  const renderShape = isDick => {
+    const size = width / 15 - 6;
+    const shapeSize = size - 6;
+
+    if (isDick) {
+      return <Image source={DickPick} style={{ width: size, height: size }} />;
+    }
+
+    return <SvgIcon.Cross height={shapeSize} width={shapeSize} />;
+  };
 
   const renderCeil = (ceil, index) => {
-    const size = width / 15 - 8;
+    const size = width / 15 - 6;
+
+    const onPress = () => {
+      const newBoard = [...board];
+      newBoard[index] = newBoard[index] === 1 ? 0 : 1;
+
+      setBoard(newBoard);
+    };
+
     return (
       <TouchableOpacity
         key={index}
+        onPress={onPress}
         style={[styles.ceil, { height: size, width: size }]}>
-        {/* <Label>0</Label> */}
+        {!!ceil && renderShape(false)}
       </TouchableOpacity>
     );
   };
 
-  const board = new Array(225).fill(0);
-  console.log('board', board);
   return (
-    <View style={[styles.container, { height: width }]}>
-      <View style={styles.board}>{board.map((c, i) => renderCeil(c, i))}</View>
-    </View>
+    <AnimatedShadow style={shadowStyle}>
+      <View style={[styles.container, { height: width }]}>
+        <View style={styles.board}>
+          {board.map((c, i) => renderCeil(c, i))}
+        </View>
+      </View>
+    </AnimatedShadow>
   );
 };
 

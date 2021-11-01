@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Label, Button } from 'components';
-import { Header, PlayersList, Board } from './components/';
+import { Header, PlayersList, Board, Info } from './components/';
 import { getGame } from 'actions/games';
 import styles from './styles';
 
@@ -29,8 +29,9 @@ const GameScreen = ({ gameId, setScreen }) => {
   return (
     <View style={styles.container}>
       <Header onBack={onBack} />
-      <PlayersList data={game?.players} />
+      <Info />
       <Board />
+      <PlayersList data={game?.players} />
     </View>
   );
 };
