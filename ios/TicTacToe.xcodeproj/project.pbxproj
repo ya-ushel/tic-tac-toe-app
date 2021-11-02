@@ -32,6 +32,10 @@
 		7E1DBA37272C1D8B00BCDE9B /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E1DBA25272C1D8B00BCDE9B /* Montserrat-ThinItalic.ttf */; };
 		7E89186B272C0D8C009A8422 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 7E89186A272C0D8C009A8422 /* fonts */; };
 		7E8E81CA272821FC0077ED8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7E8E81C9272821FC0077ED8F /* GoogleService-Info.plist */; };
+		7EBE9810273094030005E432 /* next-level.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7EBE980F273094030005E432 /* next-level.mp3 */; };
+		7EBE98122730960D0005E432 /* this-is-gg.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7EBE98112730960D0005E432 /* this-is-gg.mp3 */; };
+		7EBE981527309C7A0005E432 /* coins.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7EBE981327309C7A0005E432 /* coins.mp3 */; };
+		7EBE981627309C7A0005E432 /* ping.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7EBE981427309C7A0005E432 /* ping.mp3 */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		EF4478A10D449781D791AFCA /* libPods-TicTacToe-TicTacToeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ADEB05978F0EE3AE216CCAB /* libPods-TicTacToe-TicTacToeTests.a */; };
 /* End PBXBuildFile section */
@@ -78,6 +82,10 @@
 		7E1DBA25272C1D8B00BCDE9B /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-ThinItalic.ttf"; path = "../../app/assets/fonts/Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
 		7E89186A272C0D8C009A8422 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../app/assets/fonts; sourceTree = "<group>"; };
 		7E8E81C9272821FC0077ED8F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7EBE980F273094030005E432 /* next-level.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "next-level.mp3"; path = "../app/assets/sounds/chat-wheels/next-level.mp3"; sourceTree = "<group>"; };
+		7EBE98112730960D0005E432 /* this-is-gg.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "this-is-gg.mp3"; path = "../app/assets/sounds/chat-wheels/this-is-gg.mp3"; sourceTree = "<group>"; };
+		7EBE981327309C7A0005E432 /* coins.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = coins.mp3; path = "../app/assets/sounds/chat-wheels/coins.mp3"; sourceTree = "<group>"; };
+		7EBE981427309C7A0005E432 /* ping.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = ping.mp3; path = "../app/assets/sounds/chat-wheels/ping.mp3"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TicTacToe/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9AD914E17C9F9E88A367A3F6 /* Pods-TicTacToe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicTacToe.debug.xcconfig"; path = "Target Support Files/Pods-TicTacToe/Pods-TicTacToe.debug.xcconfig"; sourceTree = "<group>"; };
 		B4CCDEB4FF72F56B10CF9D4E /* Pods-TicTacToe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicTacToe.release.xcconfig"; path = "Target Support Files/Pods-TicTacToe/Pods-TicTacToe.release.xcconfig"; sourceTree = "<group>"; };
@@ -181,6 +189,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7EBE981327309C7A0005E432 /* coins.mp3 */,
+				7EBE981427309C7A0005E432 /* ping.mp3 */,
+				7EBE98112730960D0005E432 /* this-is-gg.mp3 */,
+				7EBE980F273094030005E432 /* next-level.mp3 */,
 				7E1DBA11272C1D4B00BCDE9B /* Resouces */,
 				7E89186A272C0D8C009A8422 /* fonts */,
 				7E8E81C9272821FC0077ED8F /* GoogleService-Info.plist */,
@@ -313,6 +325,7 @@
 			files = (
 				7E1DBA2A272C1D8B00BCDE9B /* Montserrat-BlackItalic.ttf in Resources */,
 				7E1DBA2E272C1D8B00BCDE9B /* Montserrat-MediumItalic.ttf in Resources */,
+				7EBE981627309C7A0005E432 /* ping.mp3 in Resources */,
 				7E1DBA2C272C1D8B00BCDE9B /* Montserrat-Regular.ttf in Resources */,
 				7E1DBA31272C1D8B00BCDE9B /* Montserrat-Italic.ttf in Resources */,
 				7E1DBA2F272C1D8B00BCDE9B /* Montserrat-ExtraLight.ttf in Resources */,
@@ -326,9 +339,12 @@
 				7E8E81CA272821FC0077ED8F /* GoogleService-Info.plist in Resources */,
 				7E1DBA30272C1D8B00BCDE9B /* Montserrat-SemiBold.ttf in Resources */,
 				7E1DBA29272C1D8B00BCDE9B /* Montserrat-Bold.ttf in Resources */,
+				7EBE981527309C7A0005E432 /* coins.mp3 in Resources */,
 				7E1DBA2B272C1D8B00BCDE9B /* Montserrat-Medium.ttf in Resources */,
+				7EBE98122730960D0005E432 /* this-is-gg.mp3 in Resources */,
 				7E1DBA37272C1D8B00BCDE9B /* Montserrat-ThinItalic.ttf in Resources */,
 				7E89186B272C0D8C009A8422 /* fonts in Resources */,
+				7EBE9810273094030005E432 /* next-level.mp3 in Resources */,
 				7E1DBA27272C1D8B00BCDE9B /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				7E1DBA34272C1D8B00BCDE9B /* Montserrat-Light.ttf in Resources */,
 				7E1DBA28272C1D8B00BCDE9B /* Montserrat-Thin.ttf in Resources */,

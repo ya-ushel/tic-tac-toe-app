@@ -5,6 +5,7 @@ import fonts from 'fonts';
 const containerBackground = '#4895ef';
 export default StyleSheet.create({
   shadow: {
+    justifyContent: 'center',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
   },
@@ -12,6 +13,9 @@ export default StyleSheet.create({
     backgroundColor: containerBackground,
     paddingHorizontal: 10,
     paddingVertical: 10,
+    justifyContent: 'center',
+
+    // borderRadius: 10,
   },
   board: {
     flexDirection: 'row',

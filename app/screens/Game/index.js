@@ -30,7 +30,7 @@ const GameScreen = ({ gameId, setScreen }) => {
     <View style={styles.container}>
       <Header onBack={onBack} />
       <Info />
-      <Board />
+      <Board currentPlayerId={game?.state.currentPlayerId} />
       <PlayersList data={game?.players} />
     </View>
   );

@@ -14,13 +14,14 @@ const Button = ({
   disabled,
   ...props
 }) => {
+  const opacity = disabled ? 0.5 : 1;
   return (
     <TouchableOpacity
       disabled={disabled}
       style={[
         styles.container,
         style,
-        { backgroundColor: colors[color], opacity: disabled ? 0.5 : 1 },
+        { backgroundColor: colors[color], opacity: props.opacity || opacity },
       ]}
       {...props}>
       <Label style={[styles.label, labelStyle]}>{children}</Label>

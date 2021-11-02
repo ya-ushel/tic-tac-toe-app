@@ -4,21 +4,23 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  FlatList,
   Image,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Shadow } from 'react-native-neomorph-shadows';
+import Sound from 'react-native-sound';
 
-import { Button, Label, UserAvatar, TextInput, SvgIcon } from 'components';
+import { SvgIcon } from 'components';
 import DickPick from 'assets/shapes/hui.jpeg';
 import styles from './styles';
 
 const AnimatedShadow = Animated.createAnimatedComponent(Shadow);
-
 const { width } = Dimensions.get('screen');
-const Board = ({ data }) => {
+const pingSound = new Sound('ping.mp3', Sound.MAIN_BUNDLE);
+
+const Board = ({ currentPlayerId, data }) => {
   const user = useSelector(state => state.user.data);
+  const userTurn = user.id === currentPlayerId;
   const [board, setBoard] = useState(new Array(225).fill(0));
   const shadowColors = { start: '#cdb4db', end: '#a2d2ff' };
   // const shadowColors = { start: '#f72585', end: '#3a0ca3' };
@@ -69,6 +71,11 @@ const Board = ({ data }) => {
     const size = width / 15 - 6;
 
     const onPress = () => {
+      if (!userTurn) {
+        pingSound.play(() => null);
+        return;
+      }
+
       const newBoard = [...board];
       newBoard[index] = newBoard[index] === 1 ? 0 : 1;
 
