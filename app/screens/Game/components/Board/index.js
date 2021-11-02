@@ -18,7 +18,7 @@ const AnimatedShadow = Animated.createAnimatedComponent(Shadow);
 const { width } = Dimensions.get('screen');
 const pingSound = new Sound('ping.mp3', Sound.MAIN_BUNDLE);
 
-const Board = ({ currentPlayerId, data }) => {
+const Board = ({ currentPlayerId, data, boardScale = 1 }) => {
   const user = useSelector(state => state.user.data);
   const userTurn = user.id === currentPlayerId;
   const [board, setBoard] = useState(new Array(225).fill(0));
@@ -72,6 +72,9 @@ const Board = ({ currentPlayerId, data }) => {
 
     const onPress = () => {
       if (!userTurn) {
+        if (pingSound.isPlaying) {
+          pingSound.stop();
+        }
         pingSound.play(() => null);
         return;
       }
@@ -95,7 +98,7 @@ const Board = ({ currentPlayerId, data }) => {
   return (
     <AnimatedShadow style={shadowStyle}>
       <View style={[styles.container, { height: width }]}>
-        <View style={styles.board}>
+        <View style={[styles.board, { transform: [{ scale: boardScale }] }]}>
           {board.map((c, i) => renderCeil(c, i))}
         </View>
       </View>

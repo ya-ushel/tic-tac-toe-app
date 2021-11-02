@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useSelector } from 'react-redux';
+import { NeomorphBlur } from 'react-native-neomorph-shadows';
 
 import { Button, Label, Select, TextInput, SvgIcon } from 'components';
 import { createRoom } from 'actions/rooms';

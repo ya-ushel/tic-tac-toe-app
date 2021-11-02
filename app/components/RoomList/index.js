@@ -21,8 +21,6 @@ const RoomList = ({ setScreen, setGameId }) => {
 
   const user = useSelector(state => state.user.data);
   useEffect(() => {
-    console.log('useEffect listenSocketEvents');
-
     getRooms();
     listenSocketEvents();
   }, []);
@@ -51,11 +49,12 @@ const RoomList = ({ setScreen, setGameId }) => {
 
   const getRooms = async () => {
     const rooms = await getAllRooms();
-    const isUserRoom = r => r.playerList.indexOf(user.id) !== -1;
+    console.log(rooms);
+    const isUserRoom = r => r.users.find(p => p.id === user.id);
     const userRoom = rooms.find(r => isUserRoom(r));
 
-    setRooms(rooms);
-    // setRooms(rooms.filter(r => !isUserRoom(r)));
+    // setRooms(rooms);
+    setRooms(rooms.filter(r => !isUserRoom(r) && r.status !== 'started'));
 
     if (userRoom) {
       setUserRoom(userRoom);
@@ -65,10 +64,12 @@ const RoomList = ({ setScreen, setGameId }) => {
   };
 
   const renderPlayer = player => {
+    console.log('player', player);
     return (
       <UserAvatar
-        key={player}
+        key={player.id}
         label="P"
+        backgroundColor={player.avatarColor}
         style={styles.roomPlayerAvatar}
         labelStyle={{ fontSize: 12 }}
         size={25}
@@ -89,7 +90,7 @@ const RoomList = ({ setScreen, setGameId }) => {
           <Label style={styles.roomName}>{item.name}</Label>
 
           <ScrollView style={{ width: '85%', marginTop: 10 }} horizontal>
-            {item.playerList.map(p => renderPlayer(p))}
+            {item.users.map(p => renderPlayer(p))}
           </ScrollView>
         </View>
         <View style={{ justifyContent: 'space-between' }}>
@@ -116,8 +117,7 @@ const RoomList = ({ setScreen, setGameId }) => {
   const renderUserRoom = () => {
     const host = userRoom.hostId === user.id;
     const started = userRoom.status === 'started';
-    const startDisabled =
-      userRoom.options.players !== userRoom.playerList.length;
+    const startDisabled = userRoom.options.players !== userRoom.users.length;
 
     console.log(userRoom);
     const onJoin = async () => {
@@ -171,7 +171,7 @@ const RoomList = ({ setScreen, setGameId }) => {
                 <Label style={styles.roomName}>{userRoom.name}</Label>
 
                 <ScrollView style={{ width: '85%', marginTop: 10 }} horizontal>
-                  {userRoom.playerList.map(p => renderPlayer(p))}
+                  {userRoom.users.map(p => renderPlayer(p))}
                 </ScrollView>
               </View>
               <View style={{ justifyContent: 'space-between' }}>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { NeomorphBlur } from 'react-native-neomorph-shadows';
 
 import { login } from 'store/redusers/userSlice';
 import { RoomList } from 'components';

@@ -34,7 +34,6 @@
 				<true/>
 				<key>NSIncludesSubdomains</key>
 				<true/>
-				<!--Include to allow HTTP requests-->
 				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
@@ -44,6 +43,7 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>icomoon.ttf</string>
 		<string>Montserrat-Black.ttf</string>
 		<string>Montserrat-BlackItalic.ttf</string>
 		<string>Montserrat-Bold.ttf</string>

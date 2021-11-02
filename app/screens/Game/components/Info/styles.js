@@ -15,6 +15,13 @@ export default StyleSheet.create({
   title: {
     fontSize: 22,
   },
+  scale: {
+    alignItems: 'flex-end',
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    flexDirection: 'row',
+  },
   chatWheels: {
     alignItems: 'flex-end',
     position: 'absolute',
@@ -23,7 +30,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   chatWheelsButton: {
-    opacity: 0.1,
+    opacity: 0.3,
     marginHorizontal: 5,
   },
   tipsContainer: {

@@ -47,11 +47,22 @@ const App = () => {
 
       if (!user.data) {
         const { user: newUser } = await signInAnonymously();
+        const avatarColors = [
+          '#003049',
+          '#d62828',
+          '#f77f00',
+          '#fcbf49',
+          '#eae2b7',
+        ];
+
+        const getRandom = (min, max) =>
+          Math.floor(Math.random() * (min - max + 1) + max);
+
         const userDocument = {
           id: newUser.uid,
           createdAt: Date.now(),
-          nickname:
-            'Player' + Math.floor(Math.random() * (9999 - 1000 + 1) + 1000),
+          avatarColor: avatarColors[getRandom(0, avatarColors.length)],
+          nickname: 'Player' + getRandom(1000, 9999),
         };
 
         await setDoc('users', userDocument.id, userDocument);

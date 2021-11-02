@@ -13,7 +13,10 @@ const Header = () => {
     <SafeAreaView style={styles.safe}>
       <View style={styles.container}>
         <View style={styles.userContainer}>
-          <UserAvatar label={user.nickname} />
+          <UserAvatar
+            backgroundColor={user.avatarColor}
+            label={user.nickname}
+          />
           <Label style={styles.nickname}>{user.nickname}</Label>
         </View>
         <TouchableOpacity>

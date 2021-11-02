@@ -10,6 +10,8 @@ import styles from './styles';
 const GameScreen = ({ gameId, setScreen }) => {
   const user = useSelector(state => state.user.data);
   const [game, setGame] = useState(null);
+  const [boardScale, setBoardScale] = useState(1);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,9 +31,19 @@ const GameScreen = ({ gameId, setScreen }) => {
   return (
     <View style={styles.container}>
       <Header onBack={onBack} />
-      <Info />
-      <Board currentPlayerId={game?.state.currentPlayerId} />
-      <PlayersList data={game?.players} />
+      <Info
+        boardScale={boardScale}
+        setBoardScale={setBoardScale}
+        players={game?.players}
+      />
+      <Board
+        boardScale={boardScale}
+        currentPlayerId={game?.state.currentPlayerId}
+      />
+      <PlayersList
+        data={game?.players}
+        currentPlayerId={game?.state.currentPlayerId}
+      />
     </View>
   );
 };

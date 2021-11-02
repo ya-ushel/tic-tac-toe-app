@@ -42,7 +42,10 @@ const Header = ({ onBack }) => {
               0
             </Label>
           </Label>
-          <UserAvatar label={user.nickname} />
+          <UserAvatar
+            label={user.nickname}
+            backgroundColor={user.avatarColor}
+          />
         </View>
       </View>
     </SafeAreaView>

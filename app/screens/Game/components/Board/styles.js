@@ -14,7 +14,7 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     justifyContent: 'center',
-
+    overflow: 'hidden',
     // borderRadius: 10,
   },
   board: {
