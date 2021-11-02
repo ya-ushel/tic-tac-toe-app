@@ -25,14 +25,6 @@ const App = () => {
   }, []);
 
   const listenSockets = async () => {
-    socket.on('user.joined', data => {
-      console.log('user.joined', data);
-    });
-
-    socket.on('user.left', data => {
-      console.log('user.left', data);
-    });
-
     socket.on('room.started', gameId => {
       setGameId(gameId);
       setScreen('game');

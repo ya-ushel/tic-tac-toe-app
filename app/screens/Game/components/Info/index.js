@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Animated } from 'react-native';
 import Sound from 'react-native-sound';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Button, Label, UserAvatar, SvgIcon, Icon } from 'components';
 import { socket } from 'utils';
@@ -11,10 +12,19 @@ const nextLevelSound = new Sound('next-level.mp3', Sound.MAIN_BUNDLE);
 const thisIsGgSound = new Sound('this-is-gg.mp3', Sound.MAIN_BUNDLE);
 const tipSound = new Sound('coins.mp3', Sound.MAIN_BUNDLE);
 
-const Info = ({ data, boardScale, setBoardScale, players }) => {
+const Info = ({
+  data,
+  currentPlayerId,
+  gameStatus,
+  boardScale,
+  setBoardScale,
+  players,
+}) => {
+  const user = useSelector(state => state.user.data);
   const tipAnimation = useRef(new Animated.Value(150)).current;
   const [tipData, setTipData] = useState({ from: '', to: '' });
-  console.log('tipData', tipData);
+  const currentPlayer = players.find(({ id }) => id === currentPlayerId);
+
   useEffect(() => {
     listenSocketEvents();
   }, []);
@@ -24,7 +34,6 @@ const Info = ({ data, boardScale, setBoardScale, players }) => {
   };
 
   const onTiped = data => {
-    console.log('data', data);
     setTipData(data);
 
     const hideTip = () => {
@@ -61,12 +70,31 @@ const Info = ({ data, boardScale, setBoardScale, players }) => {
     setBoardScale(boardScale);
   };
 
+  const renderInfoLabel = () => {
+    switch (gameStatus) {
+      case 'created': {
+        return <Label style={styles.title}>Waiting for players...</Label>;
+      }
+      case 'started': {
+        return (
+          <>
+            {user.id === currentPlayerId ? (
+              <Label style={styles.title}>Your turn</Label>
+            ) : (
+              <Label style={styles.title}>{currentPlayer.nickname}s turn</Label>
+            )}
+          </>
+        );
+      }
+    }
+  };
+
   const tipPlayer = players?.find(({ id }) => id === tipData.from);
   const tipedPlayer = players?.find(({ id }) => id === tipData.to);
 
   return (
     <View style={styles.container}>
-      <Label style={styles.title}>Waiting for players...</Label>
+      {renderInfoLabel()}
       <View style={styles.scale}>
         <Button
           opacity={0.7}

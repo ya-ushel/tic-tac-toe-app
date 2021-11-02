@@ -9,12 +9,14 @@ export default StyleSheet.create({
     // backgroundColor: containerBackground,
     // paddingHorizontal: 10,
     paddingBottom: 60,
+    borderWidth: 1,
   },
   playerContainer: {
-    marginHorizontal: 5,
+    // marginRight: 40,
     borderRadius: 5,
     flexDirection: 'row',
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
+    // paddingLeft: 15,
     paddingVertical: 10,
     borderWidth: 5,
     borderColor: 'transparent',
@@ -24,8 +26,15 @@ export default StyleSheet.create({
     marginLeft: 10,
     justifyContent: 'space-between',
   },
+  playerInfoBottom: {
+    marginTop: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   currentPlayerContainer: {
-    borderWidth: 5,
+    borderRadius: 7,
+    borderWidth: 7,
     borderColor: '#99d98c',
   },
   playerName: {

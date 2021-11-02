@@ -11,6 +11,7 @@ import { Shadow } from 'react-native-neomorph-shadows';
 import Sound from 'react-native-sound';
 
 import { SvgIcon } from 'components';
+import { socket } from 'utils';
 import DickPick from 'assets/shapes/hui.jpeg';
 import styles from './styles';
 
@@ -18,7 +19,7 @@ const AnimatedShadow = Animated.createAnimatedComponent(Shadow);
 const { width } = Dimensions.get('screen');
 const pingSound = new Sound('ping.mp3', Sound.MAIN_BUNDLE);
 
-const Board = ({ currentPlayerId, data, boardScale = 1 }) => {
+const Board = ({ gameId, currentPlayerId, data, boardScale = 1 }) => {
   const user = useSelector(state => state.user.data);
   const userTurn = user.id === currentPlayerId;
   const [board, setBoard] = useState(new Array(225).fill(0));
@@ -83,6 +84,9 @@ const Board = ({ currentPlayerId, data, boardScale = 1 }) => {
       newBoard[index] = newBoard[index] === 1 ? 0 : 1;
 
       setBoard(newBoard);
+
+      console.log('make move', gameId, user.id);
+      socket.emit('player.make-move', { id: user.id, gameId });
     };
 
     return (

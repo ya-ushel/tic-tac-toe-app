@@ -9,7 +9,6 @@ const IcomoonIcon = createIconSetFromIcoMoon(
 );
 
 const Icon = ({ ...props }) => {
-  console.log(icoMoonConfig);
   return <IcomoonIcon {...props} />;
 };
 

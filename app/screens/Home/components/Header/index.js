@@ -20,7 +20,7 @@ const Header = () => {
           <Label style={styles.nickname}>{user.nickname}</Label>
         </View>
         <TouchableOpacity>
-          <SvgIcon.Logout width={25} height={25} />
+          {/* <SvgIcon.Logout width={25} height={25} /> */}
         </TouchableOpacity>
       </View>
     </SafeAreaView>

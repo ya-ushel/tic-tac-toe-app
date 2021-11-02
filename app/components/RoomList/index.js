@@ -144,7 +144,9 @@ const RoomList = ({ setScreen, setGameId }) => {
             alignItems: 'center',
             paddingRight: 20,
           }}>
-          <Label style={styles.yourRoomTitle}>Your room</Label>
+          <Label style={styles.yourRoomTitle}>
+            Your {started ? 'game' : 'room'}
+          </Label>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Button color="red" style={{ marginRight: 15 }} onPress={onLeave}>
               Leave
@@ -185,7 +187,7 @@ const RoomList = ({ setScreen, setGameId }) => {
                 <View style={{ alignItems: 'flex-end' }}>
                   {started && (
                     <Button style={styles.startButton} onPress={onJoin}>
-                      Join game
+                      Join
                     </Button>
                   )}
                   {host && !started && (
