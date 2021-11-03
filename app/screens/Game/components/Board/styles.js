@@ -6,8 +6,7 @@ const containerBackground = '#4895ef';
 export default StyleSheet.create({
   shadow: {
     justifyContent: 'center',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
+    shadowOffset: { width: 0, height: 0 },
   },
   container: {
     backgroundColor: containerBackground,

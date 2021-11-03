@@ -15,17 +15,18 @@ const GameScreen = ({ gameId, setScreen }) => {
 
   const gameState = game?.state;
   const gameStatus = gameState?.status;
+  const gameBoard = gameState?.board || { data: [] };
   const currentPlayerId = gameState?.currentPlayerId || null;
   const players = game?.players || [];
   const myPlayer = players.find(({ id }) => id === user.id);
-
+  // console.log('gameBoard', gameBoard);
   useEffect(() => {
     fetchGame();
     listenSocketEvents();
   }, []);
 
   useEffect(() => {
-    if (game) {
+    if (game && myPlayer) {
       joinGame();
     }
   }, [game]);
@@ -43,7 +44,7 @@ const GameScreen = ({ gameId, setScreen }) => {
   };
 
   const onBack = () => {
-    socket.emit('player.leave', { id: myPlayer.id, gameId });
+    socket.emit('player.leave', { id: myPlayer?.id, gameId });
     setScreen('home');
   };
 
@@ -53,15 +54,14 @@ const GameScreen = ({ gameId, setScreen }) => {
   };
 
   const joinGame = async () => {
-    if (myPlayer.status !== 'joined') {
-      socket.emit('player.join', { id: myPlayer.id, gameId: game.id });
+    if (myPlayer?.status !== 'joined') {
+      socket.emit('player.join', { id: myPlayer?.id, gameId: game.id });
     }
   };
 
-  console.log('currentPlayerId', currentPlayerId);
   return (
     <View style={styles.container}>
-      <Header onBack={onBack} />
+      <Header onBack={onBack} score={myPlayer?.score || 0} />
       <Info
         gameStatus={gameStatus}
         boardScale={boardScale}
@@ -70,6 +70,9 @@ const GameScreen = ({ gameId, setScreen }) => {
         currentPlayerId={currentPlayerId}
       />
       <Board
+        players={players}
+        data={gameBoard.data}
+        boardSize={gameBoard.size}
         gameId={game?.id}
         boardScale={boardScale}
         currentPlayerId={currentPlayerId}

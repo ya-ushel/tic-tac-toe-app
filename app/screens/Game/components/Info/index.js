@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Animated } from 'react-native';
+import { View, Animated, TouchableOpacity } from 'react-native';
 import Sound from 'react-native-sound';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -81,7 +81,12 @@ const Info = ({
             {user.id === currentPlayerId ? (
               <Label style={styles.title}>Your turn</Label>
             ) : (
-              <Label style={styles.title}>{currentPlayer.nickname}s turn</Label>
+              <Label style={[styles.title]}>
+                <Label style={[styles.title, { color: currentPlayer.color }]}>
+                  {currentPlayer.nickname}
+                </Label>
+                's turn
+              </Label>
             )}
           </>
         );
@@ -96,32 +101,28 @@ const Info = ({
     <View style={styles.container}>
       {renderInfoLabel()}
       <View style={styles.scale}>
-        <Button
-          opacity={0.7}
+        <TouchableOpacity
           style={styles.chatWheelsButton}
           onPress={() => onScale(-0.25)}>
-          -
-        </Button>
-        <Button
-          opacity={0.7}
+          <Icon name="zoom-minus" size={25} />
+        </TouchableOpacity>
+        <TouchableOpacity
           style={styles.chatWheelsButton}
           onPress={() => onScale(0.25)}>
-          +
-        </Button>
+          <Icon name="zoom-plus" size={25} />
+        </TouchableOpacity>
       </View>
       <View style={styles.chatWheels}>
-        <Button
-          opacity={0.7}
+        <TouchableOpacity
           style={styles.chatWheelsButton}
           onPress={() => onChatWheel('next-level')}>
-          next level
-        </Button>
-        <Button
-          opacity={0.7}
+          <Icon name="sound" size={25} />
+        </TouchableOpacity>
+        <TouchableOpacity
           style={styles.chatWheelsButton}
           onPress={() => onChatWheel('this-is-gg')}>
-          GG
-        </Button>
+          <Icon name="chat" size={25} />
+        </TouchableOpacity>
       </View>
       <Animated.View
         style={[

@@ -5,11 +5,10 @@ import fonts from 'fonts';
 const containerBackground = '#edf6f9';
 export default StyleSheet.create({
   container: {
-    paddingTop: 50,
+    paddingTop: 15,
     // backgroundColor: containerBackground,
     // paddingHorizontal: 10,
     paddingBottom: 60,
-    borderWidth: 1,
   },
   playerContainer: {
     // marginRight: 40,
@@ -20,6 +19,14 @@ export default StyleSheet.create({
     paddingVertical: 10,
     borderWidth: 5,
     borderColor: 'transparent',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.2,
   },
   playerInfo: {
     paddingVertical: 5,
@@ -34,8 +41,14 @@ export default StyleSheet.create({
   },
   currentPlayerContainer: {
     borderRadius: 7,
-    borderWidth: 7,
-    borderColor: '#99d98c',
+    // marginTop: 10,
+    transform: [{ scale: 1.05 }],
+    shadowOffset: {
+      width: 2,
+      height: 6,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 4.2,
   },
   playerName: {
     color: 'white',

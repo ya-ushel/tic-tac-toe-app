@@ -7,7 +7,7 @@ import fonts from 'global/fonts';
 
 import styles from './styles';
 
-const Header = ({ onBack }) => {
+const Header = ({ onBack, score }) => {
   const user = useSelector(state => state.user.data);
 
   return (
@@ -39,7 +39,7 @@ const Header = ({ onBack }) => {
                 fontFamily: fonts.semiBold,
                 color: '#ffba08',
               }}>
-              0
+              {score}
             </Label>
           </Label>
           <UserAvatar

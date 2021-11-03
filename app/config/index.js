@@ -1,4 +1,4 @@
-export const production = true;
+export const production = false;
 export default {
   apiUrl: production
     ? 'https://tic-tac-toe-1337.herokuapp.com/'

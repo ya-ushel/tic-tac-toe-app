@@ -13,7 +13,8 @@ export default StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 22,
+    fontSize: 25,
+    fontFamily: fonts.semiBold,
   },
   scale: {
     alignItems: 'flex-end',
@@ -30,7 +31,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   chatWheelsButton: {
-    opacity: 0.3,
+    opacity: 0.8,
     marginHorizontal: 5,
   },
   tipsContainer: {

@@ -10,8 +10,8 @@ import styles from './styles';
 const PlayersList = ({ data, gameStatus, currentPlayerId }) => {
   const swiperRef = useRef();
   const user = useSelector(state => state.user.data);
-  const sortedFiltredPlayers = data.filter(({ status }) => status !== 'left');
-  // .sort((a, b) => b.position - a.position);
+  const sortedFiltredPlayers = data.sort((a, b) => a.position - b.position);
+  // .filter(({ status }) => status !== 'left');
 
   const currentPlayerIndex = sortedFiltredPlayers.findIndex(
     ({ id }) => currentPlayerId === id,
@@ -23,11 +23,6 @@ const PlayersList = ({ data, gameStatus, currentPlayerId }) => {
 
   const scrollToPlayer = () => {
     if (swiperRef && data.length > 1) {
-      console.log(
-        'scrollToPlayer',
-        data[currentPlayerIndex] ? currentPlayerIndex : 0,
-      );
-
       swiperRef.current.scrollToIndex({
         index: currentPlayerIndex,
       });
@@ -44,13 +39,15 @@ const PlayersList = ({ data, gameStatus, currentPlayerId }) => {
     return (
       <View
         style={[
-          { marginHorizontal: 15, padding: 3 },
-          current && styles.currentPlayerContainer,
+          { marginVertical: 17, marginHorizontal: 15, padding: 2 },
+          current && [
+            styles.currentPlayerContainer,
+            { shadowColor: item.color },
+          ],
         ]}>
         <View
           style={[
             styles.playerContainer,
-
             {
               backgroundColor: item.color,
               opacity: item.status === 'joined' ? 1 : 0.5,
@@ -77,7 +74,7 @@ const PlayersList = ({ data, gameStatus, currentPlayerId }) => {
                   {item.score}
                 </Label>
               </Label>
-              <Icon name={item.shape} width={5} height={5} color="white" />
+              {/* <Icon name={item.shape} width={5} height={5} color="white" /> */}
             </View>
           </View>
         </View>
@@ -88,7 +85,7 @@ const PlayersList = ({ data, gameStatus, currentPlayerId }) => {
   return (
     <View style={styles.container}>
       <SwiperFlatList
-        data={data}
+        data={sortedFiltredPlayers}
         ref={swiperRef}
         // index={currentPlayerIndex}
         renderItem={({ item }) => renderItem(item)}
