@@ -9,8 +9,12 @@ const initFirebase = async () => {
   //   console.log('initFirebase', app);
 };
 
-const setDoc = (collectionName, id, data) => {
-  firestore().collection(collectionName).doc(id).set(data);
+const setDoc = async (collectionName, id, data) => {
+  return await firestore().collection(collectionName).doc(id).set(data);
+};
+
+const getDoc = async (collectionName, id) => {
+  return await firestore().collection(collectionName).doc(id).get();
 };
 
 const signInAnonymously = async () => {
@@ -21,4 +25,4 @@ const signInAnonymously = async () => {
   }
 };
 
-export { setDoc, initFirebase, signInAnonymously };
+export { setDoc, getDoc, initFirebase, signInAnonymously };

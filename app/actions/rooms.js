@@ -9,10 +9,9 @@ const getAllRooms = async () => {
   }
 };
 
-const createRoom = async (name, options) => {
+const createRoom = async options => {
   try {
     const res = await axios.post('rooms/create', {
-      name,
       options,
     });
     console.log('res', res);

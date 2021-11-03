@@ -32,8 +32,10 @@ export default StyleSheet.create({
   },
   options: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     marginVertical: 10,
     alignItems: 'center',
+    alignSelf: 'stretch',
   },
   optionLabel: {
     marginRight: 20,

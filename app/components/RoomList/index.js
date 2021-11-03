@@ -117,7 +117,12 @@ const RoomList = ({ setScreen, setGameId }) => {
   const renderUserRoom = () => {
     const host = userRoom.hostId === user.id;
     const started = userRoom.status === 'started';
-    const startDisabled = userRoom.options.players !== userRoom.users.length;
+    const localGame = userRoom.options.localGame;
+    const localPlayers = userRoom.options.localPlayers || [];
+    const players = [...userRoom.users, ...localPlayers];
+
+    const startDisabled =
+      !localGame && userRoom.options.players !== userRoom.users.length;
 
     console.log(userRoom);
     const onJoin = async () => {
@@ -173,7 +178,7 @@ const RoomList = ({ setScreen, setGameId }) => {
                 <Label style={styles.roomName}>{userRoom.name}</Label>
 
                 <ScrollView style={{ width: '85%', marginTop: 10 }} horizontal>
-                  {userRoom.users.map(p => renderPlayer(p))}
+                  {players.map(p => renderPlayer(p))}
                 </ScrollView>
               </View>
               <View style={{ justifyContent: 'space-between' }}>

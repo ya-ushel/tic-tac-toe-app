@@ -45,6 +45,8 @@ module.exports = function (api) {
             store: './app/store',
             actions: './app/actions',
             utils: './app/utils',
+            config: './app/config',
+            firebase: './app/firebase',
           },
           resolvePath,
         },

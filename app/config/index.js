@@ -13,4 +13,18 @@ export default {
     appId: '1:704274868087:web:d7d4e7b8f652378116a372',
     measurementId: 'G-S72L2271GQ',
   },
+  avatarColors: [
+    '#003049',
+    '#d62828',
+    '#f77f00',
+    '#fcbf49',
+    '#eae2b7',
+    '#00b4d8',
+    '#3d405b',
+    '#caffbf',
+    '#ef476f',
+    '#43aa8b',
+    '#00afb9',
+    '#f07167',
+  ],
 };

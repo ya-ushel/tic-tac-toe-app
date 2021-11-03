@@ -27,13 +27,17 @@ const Board = ({
   data,
   boardScale = 1,
   players,
+  localGame,
 }) => {
   const user = useSelector(state => state.user.data);
-  const userTurn = user.id === currentPlayerId;
+  const myPlayer = players.find(({ id }) =>
+    localGame ? id === currentPlayerId : user.id === id,
+  );
+  console.log('myPlayer', players, currentPlayerId);
+  const userTurn = myPlayer?.id === currentPlayerId;
   const [board1, setBoard] = useState(new Array(225).fill(0));
   const shadowColors = { start: '#cdb4db', end: '#a2d2ff' };
   // const shadowColors = { start: '#f72585', end: '#3a0ca3' };
-  const myPlayer = players.find(({ id }) => id === user.id);
 
   const animation = useRef(new Animated.Value(0)).current;
 
@@ -67,6 +71,11 @@ const Board = ({
 
   const renderShape = ({ index, value }, matched, isDick) => {
     const size = width / 15 - 6;
+    let iconSize = size;
+    iconSize = value === 'square' ? size - 15 : iconSize;
+    iconSize = value === 'triangle' ? size + 2 : iconSize;
+    iconSize = value === 'cross' ? size - 15 : iconSize;
+    iconSize = value === 'circle' ? size - 10 : iconSize;
 
     const player = players.find(({ shape }) => shape === value);
     // console.log('shape', value);
@@ -77,7 +86,13 @@ const Board = ({
     }
 
     if (value) {
-      return <Icon name={value} color={matched ? 'white' : player.color} />;
+      return (
+        <Icon
+          name={value}
+          color={matched ? 'white' : player.color}
+          size={iconSize}
+        />
+      );
     }
   };
 
@@ -101,7 +116,7 @@ const Board = ({
 
       // console.log('make move', calculateScore(myPlayer.shape, ceil.index));
       socket.emit('player.make-move', {
-        id: user.id,
+        id: myPlayer.id,
         gameId,
         ceilIndex: ceil.index,
       });

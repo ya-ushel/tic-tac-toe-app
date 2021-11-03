@@ -16,9 +16,13 @@ const GameScreen = ({ gameId, setScreen }) => {
   const gameState = game?.state;
   const gameStatus = gameState?.status;
   const gameBoard = gameState?.board || { data: [] };
+  const gameSettings = game?.settings || {};
   const currentPlayerId = gameState?.currentPlayerId || null;
   const players = game?.players || [];
   const myPlayer = players.find(({ id }) => id === user.id);
+  const localGame = gameSettings.localGame;
+  // const localPlayers = gameSettings.localPlayers;
+
   // console.log('gameBoard', gameBoard);
   useEffect(() => {
     fetchGame();
@@ -58,11 +62,12 @@ const GameScreen = ({ gameId, setScreen }) => {
       socket.emit('player.join', { id: myPlayer?.id, gameId: game.id });
     }
   };
-
+  console.log(game);
   return (
     <View style={styles.container}>
       <Header onBack={onBack} score={myPlayer?.score || 0} />
       <Info
+        localGame={localGame}
         gameStatus={gameStatus}
         boardScale={boardScale}
         setBoardScale={setBoardScale}
@@ -70,6 +75,7 @@ const GameScreen = ({ gameId, setScreen }) => {
         currentPlayerId={currentPlayerId}
       />
       <Board
+        localGame={localGame}
         players={players}
         data={gameBoard.data}
         boardSize={gameBoard.size}

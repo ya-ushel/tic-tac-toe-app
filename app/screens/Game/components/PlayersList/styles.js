@@ -57,4 +57,11 @@ export default StyleSheet.create({
     fontSize: 12,
     color: 'white',
   },
+  score: {
+    marginTop: -30,
+    marginLeft: 15,
+    fontSize: 13,
+    color: '#ffba08',
+    fontFamily: fonts.semiBold,
+  },
 });

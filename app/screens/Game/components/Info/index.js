@@ -19,6 +19,7 @@ const Info = ({
   boardScale,
   setBoardScale,
   players,
+  localGame,
 }) => {
   const user = useSelector(state => state.user.data);
   const tipAnimation = useRef(new Animated.Value(150)).current;
@@ -78,7 +79,7 @@ const Info = ({
       case 'started': {
         return (
           <>
-            {user.id === currentPlayerId ? (
+            {user.id === currentPlayerId && !localGame ? (
               <Label style={styles.title}>Your turn</Label>
             ) : (
               <Label style={[styles.title]}>

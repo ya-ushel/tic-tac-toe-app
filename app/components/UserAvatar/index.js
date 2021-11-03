@@ -6,7 +6,7 @@ import styles from './styles';
 
 const UserAvatar = ({
   backgroundColor,
-  label,
+  label = 'P',
   style,
   labelStyle,
   size = 40,

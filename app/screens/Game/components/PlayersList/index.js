@@ -65,14 +65,7 @@ const PlayersList = ({ data, gameStatus, currentPlayerId }) => {
             <Label style={styles.playerName}>{item.nickname}</Label>
             <View style={styles.playerInfoBottom}>
               <Label style={styles.playerScore}>
-                Score:{' '}
-                <Label
-                  style={{
-                    fontSize: 12,
-                    color: '#ffba08',
-                  }}>
-                  {item.score}
-                </Label>
+                Score: <Label style={styles.score}>{item.score}</Label>
               </Label>
               {/* <Icon name={item.shape} width={5} height={5} color="white" /> */}
             </View>

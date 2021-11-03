@@ -5,6 +5,7 @@ import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 
+import config from 'config';
 import { setUserOnline } from './actions/user';
 import { waitForStore, initSockets, socket } from './utils/';
 import { HomeScreen, GameScreen } from './screens';
@@ -39,13 +40,6 @@ const App = () => {
 
       if (!user.data) {
         const { user: newUser } = await signInAnonymously();
-        const avatarColors = [
-          '#003049',
-          '#d62828',
-          '#f77f00',
-          '#fcbf49',
-          '#eae2b7',
-        ];
 
         const getRandom = (min, max) =>
           Math.floor(Math.random() * (min - max + 1) + max);
@@ -53,7 +47,8 @@ const App = () => {
         const userDocument = {
           id: newUser.uid,
           createdAt: Date.now(),
-          avatarColor: avatarColors[getRandom(0, avatarColors.length)],
+          avatarColor:
+            config.avatarColors[getRandom(0, config.avatarColors.length)],
           nickname: 'Player' + getRandom(1000, 9999),
         };
 

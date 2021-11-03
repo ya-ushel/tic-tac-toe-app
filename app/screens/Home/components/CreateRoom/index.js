@@ -1,33 +1,56 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, Switch, ScrollView } from 'react-native';
 import Modal from 'react-native-modal';
 import { useSelector } from 'react-redux';
 import { NeomorphBlur } from 'react-native-neomorph-shadows';
 
-import { Button, Label, Select, TextInput, SvgIcon } from 'components';
+import {
+  UserAvatar,
+  Button,
+  Label,
+  Select,
+  TextInput,
+  SvgIcon,
+} from 'components';
+import { AddLocalPlayer } from './components';
 import { createRoom } from 'actions/rooms';
 import { socket } from 'utils';
 import styles from './styles';
 
 const CreateRoom = () => {
   const user = useSelector(state => state.user.data);
-  const [loading, setLoading] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
 
   const initialState = {
     name: `${user.nickname}'s room`,
     players: 2,
     timer: '-',
+    localGame: false,
   };
 
   const [values, setValues] = useState(initialState);
+  const { localGame } = values;
+
+  const [loading, setLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const localPlayers = user.localPlayers || [];
+  const selectedLocalPlayers = values.localGame
+    ? localPlayers.slice(0, values.players - 1)
+    : [];
+  console.log(selectedLocalPlayers);
+  const createDisabled =
+    loading || localGame
+      ? selectedLocalPlayers.length !== values.players - 1
+      : false;
 
   const onCreate = async () => {
     setLoading(true);
 
-    await createRoom(values.name, {
+    await createRoom({
+      name: values.name,
       players: values.players,
       timer: values.timer,
+      localGame: values.localGame,
+      localPlayers: selectedLocalPlayers,
     });
 
     socket.emit('room.created', values);
@@ -37,8 +60,30 @@ const CreateRoom = () => {
   };
 
   const onChange = (key, value) => {
-    values[key] = value;
-    setValues(values);
+    const newValues = { ...values };
+    newValues[key] = value;
+
+    if (key === 'localGame') {
+      newValues[key] = !values.localGame;
+    }
+
+    setValues(newValues);
+  };
+
+  const renderLocalPlayer = (player, index) => {
+    const selected = index < values.players - 1;
+    return (
+      <View
+        key={player.id}
+        style={{
+          marginHorizontal: 10,
+          alignItems: 'center',
+          opacity: selected ? 1 : 0.5,
+        }}>
+        <UserAvatar backgroundColor={player.avatarColor} />
+        <Label style={{ marginTop: 10 }}>{player.nickname}</Label>
+      </View>
+    );
   };
 
   return (
@@ -80,7 +125,7 @@ const CreateRoom = () => {
             <Label style={styles.optionLabel}>Players:</Label>
             <Select
               initialValue={2}
-              variants={[2, 3, 5, 6]}
+              variants={[2, 3, 4, 5, 6]}
               onChange={value => onChange('players', value)}
             />
           </View>
@@ -92,14 +137,36 @@ const CreateRoom = () => {
               onChange={value => onChange('timer', value)}
             />
           </View>
+          <View style={styles.options}>
+            <Label style={styles.optionLabel}>Local game:</Label>
+            <Switch
+              onValueChange={value => onChange('localGame', value)}
+              value={localGame}
+            />
+          </View>
+          {localGame && (
+            <>
+              <View style={[styles.options, { marginLeft: 0 }]}></View>
+              <ScrollView
+                horizontal
+                style={{ alignSelf: 'stretch' }}
+                contentContainerStyle={[
+                  styles.options,
+                  { paddingVertical: 5 },
+                ]}>
+                {localPlayers.map(renderLocalPlayer)}
+                <AddLocalPlayer localPlayers={localPlayers} />
+              </ScrollView>
+            </>
+          )}
           <Button
-            disabled={loading}
+            disabled={createDisabled}
             onPress={onCreate}
             style={{
-              marginTop: 50,
+              marginTop: 100,
               alignSelf: 'flex-end',
-              paddingHorizontal: 15,
-              paddingVertical: 5,
+              paddingHorizontal: 25,
+              paddingVertical: 10,
             }}
             labelStyle={{ fontSize: 16 }}>
             Create
