@@ -17,13 +17,14 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
   },
   modal: {
-    backgroundColor: '#fdfcdc',
+    backgroundColor: '#62b6cb',
     alignItems: 'flex-start',
     paddingVertical: 20,
     marginHorizontal: -20,
     paddingHorizontal: 20,
     marginBottom: -20,
     paddingBottom: 100,
+    borderRadius: 5,
   },
   modalTitle: {
     fontSize: 18,

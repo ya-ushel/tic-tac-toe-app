@@ -16,6 +16,9 @@ export default StyleSheet.create({
     fontSize: 25,
     fontFamily: fonts.semiBold,
   },
+  boardScale: {
+    fontFamily: fonts.semiBold,
+  },
   scale: {
     alignItems: 'flex-end',
     position: 'absolute',

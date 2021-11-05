@@ -49,7 +49,7 @@ const RoomList = ({ setScreen, setGameId }) => {
 
   const getRooms = async () => {
     const rooms = await getAllRooms();
-    console.log(rooms);
+
     const isUserRoom = r => r.users.find(p => p.id === user.id);
     const userRoom = rooms.find(r => isUserRoom(r));
 
@@ -64,7 +64,6 @@ const RoomList = ({ setScreen, setGameId }) => {
   };
 
   const renderPlayer = player => {
-    console.log('player', player);
     return (
       <UserAvatar
         key={player.id}
@@ -174,10 +173,10 @@ const RoomList = ({ setScreen, setGameId }) => {
                 styles.roomContainer,
                 { borderBottomWidth: 0, paddingBottom: 10 },
               ]}>
-              <View>
+              <View style={{ width: '65%' }}>
                 <Label style={styles.roomName}>{userRoom.name}</Label>
 
-                <ScrollView style={{ width: '85%', marginTop: 10 }} horizontal>
+                <ScrollView style={{ marginTop: 10 }} horizontal>
                   {players.map(p => renderPlayer(p))}
                 </ScrollView>
               </View>

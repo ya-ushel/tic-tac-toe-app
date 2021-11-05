@@ -53,7 +53,7 @@ const PlayersList = ({ data, gameStatus, currentPlayerId }) => {
               opacity: item.status === 'joined' ? 1 : 0.5,
             },
           ]}>
-          <TouchableOpacity onPress={onTip}>
+          <TouchableOpacity style={{ opacity: 0.3 }} onPress={onTip}>
             <UserAvatar
               backgroundColor={item.avatarColor}
               size={50}

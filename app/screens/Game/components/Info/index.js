@@ -13,7 +13,7 @@ const thisIsGgSound = new Sound('this-is-gg.mp3', Sound.MAIN_BUNDLE);
 const tipSound = new Sound('coins.mp3', Sound.MAIN_BUNDLE);
 
 const Info = ({
-  data,
+  gameId,
   currentPlayerId,
   gameStatus,
   boardScale,
@@ -71,6 +71,13 @@ const Info = ({
     setBoardScale(boardScale);
   };
 
+  const onUndoMove = () => {
+    socket.emit('player.undo-move', {
+      id: currentPlayerId,
+      gameId,
+    });
+  };
+
   const renderInfoLabel = () => {
     switch (gameStatus) {
       case 'created': {
@@ -105,16 +112,20 @@ const Info = ({
         <TouchableOpacity
           style={styles.chatWheelsButton}
           onPress={() => onScale(-0.25)}>
-          <Icon name="zoom-minus" size={25} />
+          <Icon name="minus" size={15} />
         </TouchableOpacity>
+        <Label style={styles.boardScale}>
+          {boardScale}
+          {boardScale % 1 === 0 && '.0'}
+        </Label>
         <TouchableOpacity
           style={styles.chatWheelsButton}
           onPress={() => onScale(0.25)}>
-          <Icon name="zoom-plus" size={25} />
+          <Icon name="plus" size={15} />
         </TouchableOpacity>
       </View>
       <View style={styles.chatWheels}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.chatWheelsButton}
           onPress={() => onChatWheel('next-level')}>
           <Icon name="sound" size={25} />
@@ -123,7 +134,8 @@ const Info = ({
           style={styles.chatWheelsButton}
           onPress={() => onChatWheel('this-is-gg')}>
           <Icon name="chat" size={25} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <Button onPress={onUndoMove}>Undo</Button>
       </View>
       <Animated.View
         style={[

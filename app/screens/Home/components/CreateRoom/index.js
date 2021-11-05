@@ -25,6 +25,7 @@ const CreateRoom = () => {
     players: 2,
     timer: '-',
     localGame: false,
+    boardSize: '6x6',
   };
 
   const [values, setValues] = useState(initialState);
@@ -49,6 +50,7 @@ const CreateRoom = () => {
       name: values.name,
       players: values.players,
       timer: values.timer,
+      boardSize: parseInt(values.boardSize, 10),
       localGame: values.localGame,
       localPlayers: selectedLocalPlayers,
     });
@@ -123,11 +125,20 @@ const CreateRoom = () => {
           </View>
           <View style={styles.options}>
             <Label style={styles.optionLabel}>Players:</Label>
-            <Select
-              initialValue={2}
-              variants={[2, 3, 4, 5, 6]}
-              onChange={value => onChange('players', value)}
-            />
+            <ScrollView
+              horizontal
+              style={{ marginLeft: 50 }}
+              contentContainerStyle={{
+                flex: 1,
+                justifyContent: 'flex-end',
+              }}
+              showsHorizontalScrollIndicator={false}>
+              <Select
+                initialValue={2}
+                variants={[2, 3, 4, 5, 6, 7, 8]}
+                onChange={value => onChange('players', value)}
+              />
+            </ScrollView>
           </View>
           <View style={styles.options}>
             <Label style={styles.optionLabel}>Timer:</Label>
@@ -135,6 +146,14 @@ const CreateRoom = () => {
               initialValue={'-'}
               variants={['-', 10, 20, 30]}
               onChange={value => onChange('timer', value)}
+            />
+          </View>
+          <View style={styles.options}>
+            <Label style={styles.optionLabel}>Board size:</Label>
+            <Select
+              initialValue={values.boardSize}
+              variants={['6x6', '9x9', '12x12', '15x15']}
+              onChange={value => onChange('boardSize', value)}
             />
           </View>
           <View style={styles.options}>

@@ -62,11 +62,13 @@ const GameScreen = ({ gameId, setScreen }) => {
       socket.emit('player.join', { id: myPlayer?.id, gameId: game.id });
     }
   };
+
   console.log(game);
   return (
     <View style={styles.container}>
       <Header onBack={onBack} score={myPlayer?.score || 0} />
       <Info
+        gameId={gameId}
         localGame={localGame}
         gameStatus={gameStatus}
         boardScale={boardScale}
