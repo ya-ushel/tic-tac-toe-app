@@ -10,12 +10,11 @@ const initSockets = async () => {
     const {
       user: { data },
     } = store.getState();
-    console.log('initSockets', data.id);
 
     socket = io(config.apiUrl, {
       secure: true,
       transports: ['websocket'],
-      auth: { userId: data.id },
+      auth: { userId: data?.id },
     });
 
     socket.on('connect_error', err => {

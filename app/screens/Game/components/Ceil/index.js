@@ -5,10 +5,11 @@ import Sound from 'react-native-sound';
 import { Icon } from 'components';
 import DickPick from 'assets/shapes/hui.jpeg';
 import styles from './styles';
+const nextLevelSound = new Sound('next-level.mp3', Sound.MAIN_BUNDLE);
 
 const pingSound = new Sound('ping.mp3', Sound.MAIN_BUNDLE);
 const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
-  const size = width / boardSize - 6;
+  const size = width / boardSize - 8;
   //   const x = ceil.index % boardSize;
   //   const y = parseInt(ceil.index / boardSize);
   const playerCeil = players.find(({ shape }) => ceil.value === shape);
@@ -30,7 +31,7 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
   };
 
   const renderShape = ({ index, value }, matched, isDick) => {
-    let iconSize = size - 10; // - 10 ipad
+    let iconSize = size - 8; // - 10 ipad
     iconSize = value === 'square' ? iconSize - 6 : iconSize;
     iconSize = value === 'triangle' ? iconSize + 10 : iconSize;
     iconSize = value === 'cross' ? iconSize - 5 : iconSize;
@@ -45,7 +46,12 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
     // return <Label>{shape}</Label>;
 
     if (isDick && value) {
-      return <Image source={DickPick} style={{ width: size, height: size }} />;
+      return (
+        <Image
+          source={DickPick}
+          style={{ width: size, height: size, borderRadius: 5 }}
+        />
+      );
     }
 
     if (value) {

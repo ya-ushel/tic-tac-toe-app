@@ -43,8 +43,8 @@ const Header = ({ onBack, score }) => {
             </Label>
           </Label>
           <UserAvatar
-            label={user.nickname}
-            backgroundColor={user.avatarColor}
+            label={user?.nickname}
+            backgroundColor={user?.avatarColor}
           />
         </View>
       </View>

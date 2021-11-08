@@ -10,7 +10,7 @@ import styles from './styles';
 const noop = () => null;
 const nextLevelSound = new Sound('next-level.mp3', Sound.MAIN_BUNDLE);
 const thisIsGgSound = new Sound('this-is-gg.mp3', Sound.MAIN_BUNDLE);
-const tipSound = new Sound('coins.mp3', Sound.MAIN_BUNDLE);
+const tipSound = new Sound('next-level.mp3', Sound.MAIN_BUNDLE);
 
 const Info = ({
   gameId,

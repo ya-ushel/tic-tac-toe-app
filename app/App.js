@@ -38,7 +38,7 @@ const App = () => {
       await waitForStore();
       const { user } = store.getState();
 
-      if (!user.data) {
+      if (user.data) {
         const { user: newUser } = await signInAnonymously();
 
         const getRandom = (min, max) =>

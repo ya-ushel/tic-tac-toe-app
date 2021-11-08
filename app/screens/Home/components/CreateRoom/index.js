@@ -21,7 +21,7 @@ const CreateRoom = () => {
   const user = useSelector(state => state.user.data);
 
   const initialState = {
-    name: `${user.nickname}'s room`,
+    name: `${user?.nickname}'s room`,
     players: 2,
     timer: '-',
     localGame: false,
@@ -33,7 +33,7 @@ const CreateRoom = () => {
 
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const localPlayers = user.localPlayers || [];
+  const localPlayers = user?.localPlayers || [];
   const selectedLocalPlayers = values.localGame
     ? localPlayers.slice(0, values.players - 1)
     : [];
@@ -119,7 +119,7 @@ const CreateRoom = () => {
           <View style={styles.options}>
             <Label style={styles.optionLabel}>Name:</Label>
             <TextInput
-              initialValue={`${user.nickname}'s room`}
+              initialValue={`${user?.nickname}'s room`}
               onChange={value => onChange('name', value)}
             />
           </View>

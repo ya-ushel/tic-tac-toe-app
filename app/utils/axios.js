@@ -10,7 +10,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(config => {
-  config.headers.post['userId'] = store.getState().user?.data.id;
+  config.headers.post['userId'] = store.getState().user?.data?.id;
   return config;
 });
 
