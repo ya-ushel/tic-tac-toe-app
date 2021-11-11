@@ -4,7 +4,12 @@ import { TouchableOpacity } from 'react-native';
 import { Label } from 'components';
 import styles from './styles';
 
-const colors = { red: '#e63946', green: '#90be6d', yellow: '#fb8500' };
+const colors = {
+  red: '#e63946',
+  green: '#90be6d',
+  yellow: '#fb8500',
+  gold: '#ffc300',
+};
 
 const Button = ({
   labelStyle,
@@ -12,9 +17,11 @@ const Button = ({
   style,
   color = 'green',
   disabled,
+  renderIcon,
   ...props
 }) => {
   const opacity = disabled ? 0.5 : 1;
+  // console.log('icon', icon);
   return (
     <TouchableOpacity
       disabled={disabled}
@@ -24,7 +31,11 @@ const Button = ({
         { backgroundColor: colors[color], opacity: props.opacity || opacity },
       ]}
       {...props}>
-      <Label style={[styles.label, labelStyle]}>{children}</Label>
+      {renderIcon ? (
+        renderIcon()
+      ) : (
+        <Label style={[styles.label, labelStyle]}>{children}</Label>
+      )}
     </TouchableOpacity>
   );
 };

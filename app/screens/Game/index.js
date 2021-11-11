@@ -4,7 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Label, Button } from 'components';
 import { socket } from 'utils';
-import { Header, PlayersList, Board, Info } from './components/';
+import {
+  Header,
+  GameDetails,
+  PlayersScores,
+  PlayersList,
+  Board,
+  Info,
+} from './components/';
 import { getGame } from 'actions/games';
 import styles from './styles';
 
@@ -12,7 +19,9 @@ const GameScreen = ({ gameId, setScreen }) => {
   const user = useSelector(state => state.user.data);
   const [game, setGame] = useState(null);
   const [joined, setJoined] = useState(false);
+  const [resultsVisible, setResultsVisible] = useState(false);
   const [boardScale, setBoardScale] = useState(1);
+  const [boardRef, setBoardRef] = useState(null);
 
   const gameState = game?.state;
   const gameStatus = gameState?.status;
@@ -23,7 +32,6 @@ const GameScreen = ({ gameId, setScreen }) => {
   const myPlayer = players.find(({ id }) => id === user.id);
   const localGame = gameSettings.localGame;
   // const localPlayers = gameSettings.localPlayers;
-  console.log(gameBoard);
   useEffect(() => {
     fetchGame();
     listenSocketEvents();
@@ -32,7 +40,7 @@ const GameScreen = ({ gameId, setScreen }) => {
       unsubscribeSocketEvents();
     };
   }, []);
-
+  console.log(gameStatus, 'gameStatus');
   useEffect(() => {
     if (game && myPlayer) {
       joinGame();
@@ -82,6 +90,20 @@ const GameScreen = ({ gameId, setScreen }) => {
     }
   };
 
+  const changeBoardScale = scale => {
+    if (scale >= 1 && scale <= 1.5) {
+      const fixed = parseFloat(scale.toFixed(2));
+      console.log('scale,', fixed);
+
+      boardRef.zoomTo(fixed);
+      setBoardScale(fixed);
+    }
+  };
+
+  const onBoardRef = boardRef => {
+    setBoardRef(boardRef);
+  };
+
   return (
     <View style={styles.container}>
       <Header onBack={onBack} score={myPlayer?.score || 0} />
@@ -90,25 +112,39 @@ const GameScreen = ({ gameId, setScreen }) => {
         localGame={localGame}
         gameStatus={gameStatus}
         boardScale={boardScale}
-        setBoardScale={setBoardScale}
+        setBoardScale={changeBoardScale}
         players={players}
         currentPlayerId={currentPlayerId}
+        resultsVisible={resultsVisible}
       />
-      <Board
-        localGame={localGame}
-        players={players}
-        data={gameBoard.data}
-        boardSize={gameBoard.size}
-        gameId={game?.id}
-        boardScale={boardScale}
-        currentPlayerId={currentPlayerId}
-      />
-      <PlayersList
-        gameId={gameId}
-        data={players}
-        gameStatus={gameStatus}
-        currentPlayerId={currentPlayerId}
-      />
+      {resultsVisible ? (
+        <PlayersScores players={players} />
+      ) : (
+        <Board
+          onBoardRef={onBoardRef}
+          localGame={localGame}
+          players={players}
+          data={gameBoard.data}
+          boardSize={gameBoard.size}
+          gameId={game?.id}
+          boardScale={boardScale}
+          currentPlayerId={currentPlayerId}
+        />
+      )}
+
+      {gameStatus !== 'finished' ? (
+        <PlayersList
+          gameId={gameId}
+          data={players}
+          gameStatus={gameStatus}
+          currentPlayerId={currentPlayerId}
+        />
+      ) : (
+        <GameDetails
+          resultsVisible={resultsVisible}
+          setResultsVisible={setResultsVisible}
+        />
+      )}
     </View>
   );
 };

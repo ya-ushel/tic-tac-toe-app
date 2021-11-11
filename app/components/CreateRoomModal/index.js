@@ -128,11 +128,11 @@ const CreateRoomModal = ({
             position: 'absolute',
             right: 0,
             top: -5,
-            backgroundColor: 'white',
+            backgroundColor: '#f94144',
             borderRadius: 10,
             padding: 5,
           }}>
-          <Icon name="cross" color="red" size={8} />
+          <Icon name="cross" color="white" size={8} />
         </TouchableOpacity>
       </View>
     );

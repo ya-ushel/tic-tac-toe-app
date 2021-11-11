@@ -13,7 +13,8 @@ export default StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 25,
+    color: '#293241',
+    fontSize: 30,
     fontFamily: fonts.semiBold,
   },
   boardScale: {

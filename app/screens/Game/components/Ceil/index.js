@@ -18,7 +18,6 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
   const playerCeil = players.find(({ shape }) => ceil.value === shape);
   const freeCeil = !ceil.value;
   if (ceil.matched) {
-    console.log('playerCeil', playerCeil);
   }
 
   const onPress = () => {
@@ -35,19 +34,22 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
 
   const renderShape = ({ index, value }, matched, isDick) => {
     let shapeMargin = 6;
-    shapeMargin = boardSize === 15 ? 2 : shapeMargin;
+    shapeMargin = boardSize === 15 ? 6 : shapeMargin;
     shapeMargin = boardSize === 9 ? 7 : shapeMargin;
     shapeMargin = boardSize === 6 ? 8 : shapeMargin;
 
     let iconSize = size - shapeMargin; // - 10 ipad
     iconSize = value === 'square' ? iconSize - 6 : iconSize;
-    iconSize = value === 'triangle' ? iconSize + 10 : iconSize;
-    iconSize = value === 'cross' ? iconSize - 5 : iconSize;
+    iconSize = value === 'triangle' ? iconSize + 8 : iconSize;
+    iconSize = value === 'cross' ? iconSize - 7 : iconSize;
     iconSize = value === 'circle' ? iconSize - 5 : iconSize;
     iconSize = value === 'triangle-down' ? iconSize - 4 : iconSize;
     iconSize = value === 'plus' ? iconSize - 6 : iconSize;
     iconSize = value === 'hexagon' ? iconSize + 2 : iconSize;
     iconSize = value === 'romb' ? iconSize + 4 : iconSize;
+
+    iconSize =
+      value === 'triangle' && boardSize === 15 ? iconSize - 6 : iconSize;
 
     const player = players.find(({ shape }) => shape === value);
 

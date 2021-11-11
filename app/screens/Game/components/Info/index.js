@@ -20,11 +20,13 @@ const Info = ({
   setBoardScale,
   players,
   localGame,
+  resultsVisible,
 }) => {
   const user = useSelector(state => state.user.data);
   const tipAnimation = useRef(new Animated.Value(150)).current;
   const [tipData, setTipData] = useState({ from: '', to: '' });
   const currentPlayer = players.find(({ id }) => id === currentPlayerId);
+  console.log('boardScale', boardScale);
 
   useEffect(() => {
     listenSocketEvents();
@@ -74,8 +76,8 @@ const Info = ({
   };
 
   const onScale = value => {
-    boardScale = boardScale + value;
-    setBoardScale(boardScale);
+    const newScale = boardScale + value;
+    setBoardScale(newScale);
   };
 
   const onUndoMove = () => {
@@ -106,6 +108,9 @@ const Info = ({
           </>
         );
       }
+      case 'finished': {
+        return <Label style={styles.title}>Game finished</Label>;
+      }
     }
   };
 
@@ -115,22 +120,25 @@ const Info = ({
   return (
     <View style={styles.container}>
       {renderInfoLabel()}
-      <View style={styles.scale}>
-        <TouchableOpacity
-          style={styles.chatWheelsButton}
-          onPress={() => onScale(-0.25)}>
-          <Icon name="minus" size={15} />
-        </TouchableOpacity>
-        <Label style={styles.boardScale}>
-          {boardScale}
-          {boardScale % 1 === 0 && '.0'}
-        </Label>
-        <TouchableOpacity
-          style={styles.chatWheelsButton}
-          onPress={() => onScale(0.25)}>
-          <Icon name="plus" size={15} />
-        </TouchableOpacity>
-      </View>
+      {!resultsVisible && (
+        <View style={styles.scale}>
+          <TouchableOpacity
+            style={styles.chatWheelsButton}
+            onPress={() => onScale(-0.1)}>
+            <Icon name="minus" size={15} />
+          </TouchableOpacity>
+          <Label style={styles.boardScale}>
+            {boardScale}
+            {boardScale % 1 === 0 && '.0'}
+          </Label>
+          <TouchableOpacity
+            style={styles.chatWheelsButton}
+            onPress={() => onScale(0.1)}>
+            <Icon name="plus" size={15} />
+          </TouchableOpacity>
+        </View>
+      )}
+
       <View style={styles.chatWheels}>
         {/* <TouchableOpacity
           style={styles.chatWheelsButton}
@@ -142,7 +150,9 @@ const Info = ({
           onPress={() => onChatWheel('this-is-gg')}>
           <Icon name="chat" size={25} />
         </TouchableOpacity> */}
-        <Button onPress={onUndoMove}>Undo</Button>
+        {localGame && gameStatus !== 'finished' && (
+          <Button onPress={onUndoMove}>Undo</Button>
+        )}
       </View>
       <Animated.View
         style={[
