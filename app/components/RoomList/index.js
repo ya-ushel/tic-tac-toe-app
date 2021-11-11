@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  FlatList,
-  ScrollView,
-  TouchableOpacity,
-  LayoutAnimation,
-} from 'react-native';
+import { View, FlatList, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { Label, SvgIcon, UserAvatar } from '../';
-import { getAllRooms, leaveRoom, joinRoom } from '../../actions/rooms';
+import { getAllRooms, joinRoom } from '../../actions/rooms';
 import { socket } from 'utils';
 import Button from '../Button';
 import styles from './styles';
+import { UserRoom } from './components/';
 
 const RoomList = ({ setScreen, setGameId }) => {
   const [userRoom, setUserRoom] = useState(null);
-  const [userRoomExpanded, setUserRoomExpanded] = useState([]);
   const [rooms, setRooms] = useState([]);
 
   const user = useSelector(state => state.user.data);
@@ -40,11 +34,6 @@ const RoomList = ({ setScreen, setGameId }) => {
       console.log('room.user-left', data);
       getRooms();
     });
-  };
-
-  const toggleUserRoomExpanded = value => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setUserRoomExpanded(value);
   };
 
   const getRooms = async () => {
@@ -113,111 +102,18 @@ const RoomList = ({ setScreen, setGameId }) => {
     );
   };
 
-  const renderUserRoom = () => {
-    const host = userRoom.hostId === user.id;
-    const started = userRoom.status === 'started';
-    const localGame = userRoom.options.localGame;
-    const localPlayers = userRoom.options.localPlayers || [];
-    const players = [...userRoom.users, ...localPlayers];
-
-    const startDisabled =
-      !localGame && userRoom.options.players !== userRoom.users.length;
-
-    console.log(userRoom);
-    const onJoin = async () => {
-      setGameId(userRoom.gameId);
-      setScreen('game');
-    };
-
-    const onLeave = async () => {
-      await leaveRoom(userRoom.id);
-      socket.emit('room.leave', user);
-    };
-
-    const onStart = async () => {
-      socket.emit('room.start-game', { roomId: userRoom.id });
-    };
-
-    return (
-      <>
-        <View
-          style={{
-            alignSelf: 'stretch',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingRight: 20,
-          }}>
-          <Label style={styles.yourRoomTitle}>
-            Your {started ? 'game' : 'room'}
-          </Label>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Button color="red" style={{ marginRight: 15 }} onPress={onLeave}>
-              Leave
-            </Button>
-            {userRoomExpanded ? (
-              <TouchableOpacity onPress={() => toggleUserRoomExpanded(false)}>
-                <SvgIcon.ArrowUp width={25} height={25} />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => toggleUserRoomExpanded(true)}>
-                <SvgIcon.ArrowDown width={25} height={25} />
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-        <View style={styles.roomContainerShadow}>
-          {userRoomExpanded && (
-            <View
-              style={[
-                styles.roomContainer,
-                { borderBottomWidth: 0, paddingBottom: 10 },
-              ]}>
-              <View style={{ width: '65%' }}>
-                <Label style={styles.roomName}>{userRoom.name}</Label>
-
-                <ScrollView style={{ marginTop: 10 }} horizontal>
-                  {players.map(p => renderPlayer(p))}
-                </ScrollView>
-              </View>
-              <View style={{ justifyContent: 'space-between' }}>
-                <View style={styles.roomSettings}>
-                  <Label style={styles.roomPlayers}>
-                    {userRoom.options?.players || 2}
-                  </Label>
-                  <SvgIcon.Players width={20} height={20} />
-                </View>
-
-                <View style={{ alignItems: 'flex-end' }}>
-                  {started && (
-                    <Button style={styles.startButton} onPress={onJoin}>
-                      Join
-                    </Button>
-                  )}
-                  {host && !started && (
-                    <Button
-                      disabled={startDisabled}
-                      style={styles.startButton}
-                      onPress={onStart}>
-                      Start game
-                    </Button>
-                  )}
-                </View>
-              </View>
-            </View>
-          )}
-          <View style={styles.shadow} />
-        </View>
-      </>
-    );
-  };
-
   return (
     <View style={styles.container}>
-      {userRoom && <View>{renderUserRoom()}</View>}
+      <UserRoom
+        userRoom={userRoom}
+        setGameId={setGameId}
+        setScreen={setScreen}
+      />
       <FlatList
         keyExtractor={(item, index) => item.name + index}
-        ListHeaderComponent={() => <Label style={styles.title}>Rooms</Label>}
+        ListHeaderComponent={() => (
+          <Label style={styles.title}>All rooms</Label>
+        )}
         data={rooms}
         renderItem={renderRoom}
       />

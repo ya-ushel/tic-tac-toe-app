@@ -21,7 +21,7 @@ const Select = ({ variants, onChange, initialValue }) => {
           styles.variantContainer,
           selected === variant && styles.selectedVariantContainer,
         ]}>
-        <Label style={{ color: selected === variant ? '#62b6cb' : 'white' }}>
+        <Label style={{ color: selected === variant ? 'white' : '#1d3557' }}>
           {variant}
         </Label>
       </TouchableOpacity>

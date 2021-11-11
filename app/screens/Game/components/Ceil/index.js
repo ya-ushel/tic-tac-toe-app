@@ -9,17 +9,20 @@ const nextLevelSound = new Sound('next-level.mp3', Sound.MAIN_BUNDLE);
 
 const pingSound = new Sound('ping.mp3', Sound.MAIN_BUNDLE);
 const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
-  const size = width / boardSize - 8;
+  let margin = 6;
+  margin = boardSize === 9 ? 7 : margin;
+  margin = boardSize === 6 ? 8 : margin;
+  const size = width / boardSize - margin;
   //   const x = ceil.index % boardSize;
   //   const y = parseInt(ceil.index / boardSize);
   const playerCeil = players.find(({ shape }) => ceil.value === shape);
-
+  const freeCeil = !ceil.value;
   if (ceil.matched) {
     console.log('playerCeil', playerCeil);
   }
 
   const onPress = () => {
-    if (false) {
+    if (!freeCeil) {
       if (pingSound.isPlaying) {
         pingSound.stop();
       }
@@ -31,7 +34,12 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
   };
 
   const renderShape = ({ index, value }, matched, isDick) => {
-    let iconSize = size - 8; // - 10 ipad
+    let shapeMargin = 6;
+    shapeMargin = boardSize === 15 ? 2 : shapeMargin;
+    shapeMargin = boardSize === 9 ? 7 : shapeMargin;
+    shapeMargin = boardSize === 6 ? 8 : shapeMargin;
+
+    let iconSize = size - shapeMargin; // - 10 ipad
     iconSize = value === 'square' ? iconSize - 6 : iconSize;
     iconSize = value === 'triangle' ? iconSize + 10 : iconSize;
     iconSize = value === 'cross' ? iconSize - 5 : iconSize;
@@ -64,7 +72,9 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
       );
     }
   };
-
+  if (ceil.possibleMatch) {
+    console.log('possibleMatch', ceil);
+  }
   return (
     <TouchableOpacity
       // disabled={ceil.value}
@@ -76,8 +86,8 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
           backgroundColor: ceil.matched ? playerCeil?.color : 'white',
           height: size,
           width: size,
-          borderWidth: ceil.matched ? 0 : 0,
-          borderColor: playerCeil?.color || 'white',
+          // borderWidth: ceil.possibleMatch ? 5 : 0,
+          // borderColor: ceil.possibleMatchColor,
         },
       ]}>
       {!!ceil && renderShape(ceil, ceil.matched, false)}

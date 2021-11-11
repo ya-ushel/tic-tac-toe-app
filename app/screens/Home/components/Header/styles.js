@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
   safe: {
@@ -6,14 +6,15 @@ export default StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    height: 50,
+    // height: 50,
     borderBottomWidth: 1,
     borderColor: '#cccccc',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     backgroundColor: '#0081a7',
-    paddingBottom: 10,
+    paddingBottom: 20,
+    paddingTop: Platform.isPad ? 20 : 0,
   },
   userContainer: {
     flexDirection: 'row',

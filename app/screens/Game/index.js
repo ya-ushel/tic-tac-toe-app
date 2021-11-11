@@ -11,6 +11,7 @@ import styles from './styles';
 const GameScreen = ({ gameId, setScreen }) => {
   const user = useSelector(state => state.user.data);
   const [game, setGame] = useState(null);
+  const [joined, setJoined] = useState(false);
   const [boardScale, setBoardScale] = useState(1);
 
   const gameState = game?.state;
@@ -22,22 +23,32 @@ const GameScreen = ({ gameId, setScreen }) => {
   const myPlayer = players.find(({ id }) => id === user.id);
   const localGame = gameSettings.localGame;
   // const localPlayers = gameSettings.localPlayers;
-
-  // console.log('gameBoard', gameBoard);
+  console.log(gameBoard);
   useEffect(() => {
     fetchGame();
     listenSocketEvents();
+
+    return () => {
+      unsubscribeSocketEvents();
+    };
   }, []);
 
   useEffect(() => {
     if (game && myPlayer) {
       joinGame();
+      listenSocketEvents();
     }
   }, [game]);
 
   const listenSocketEvents = async () => {
+    unsubscribeSocketEvents();
+
+    if (!game) {
+      return;
+    }
+
     const updateGame = ({ game }) => {
-      // console.log('updateGame', game);
+      console.log('updateGame');
       setGame(game);
     };
 
@@ -45,6 +56,13 @@ const GameScreen = ({ gameId, setScreen }) => {
     socket.on('player.leaved', updateGame);
     socket.on('game.started', updateGame);
     socket.on('game.updated', updateGame);
+  };
+
+  const unsubscribeSocketEvents = async () => {
+    socket.off('player.joined');
+    socket.off('player.leaved');
+    socket.off('game.started');
+    socket.off('game.updated');
   };
 
   const onBack = () => {
@@ -58,12 +76,12 @@ const GameScreen = ({ gameId, setScreen }) => {
   };
 
   const joinGame = async () => {
-    if (myPlayer?.status !== 'joined') {
-      socket.emit('player.join', { id: myPlayer?.id, gameId: game.id });
+    if (myPlayer?.status !== 'joined' || !joined) {
+      await socket.emit('player.join', { id: myPlayer?.id, gameId: game.id });
+      setJoined(true);
     }
   };
 
-  console.log(game);
   return (
     <View style={styles.container}>
       <Header onBack={onBack} score={myPlayer?.score || 0} />
@@ -86,6 +104,7 @@ const GameScreen = ({ gameId, setScreen }) => {
         currentPlayerId={currentPlayerId}
       />
       <PlayersList
+        gameId={gameId}
         data={players}
         gameStatus={gameStatus}
         currentPlayerId={currentPlayerId}

@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import { Label } from 'components';
 import styles from './styles';
 
-const colors = { red: '#e63946', green: '#90be6d' };
+const colors = { red: '#e63946', green: '#90be6d', yellow: '#fb8500' };
 
 const Button = ({
   labelStyle,

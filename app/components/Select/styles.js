@@ -10,11 +10,11 @@ export default StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 3,
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: '#1d3557',
     minWidth: 30,
     alignItems: 'center',
   },
   selectedVariantContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#1d3557',
   },
 });

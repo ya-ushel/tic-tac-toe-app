@@ -20,6 +20,18 @@ const createRoom = async options => {
   }
 };
 
+const editRoom = async (roomId, options) => {
+  try {
+    const res = await axios.post('rooms/edit', {
+      options,
+      roomId,
+    });
+    console.log('res', res);
+  } catch (error) {
+    console.log('error', error);
+  }
+};
+
 const leaveRoom = async id => {
   try {
     const res = await axios.post('rooms/leave', {
@@ -42,4 +54,4 @@ const joinRoom = async id => {
   }
 };
 
-export { getAllRooms, createRoom, leaveRoom, joinRoom };
+export { getAllRooms, createRoom, editRoom, leaveRoom, joinRoom };

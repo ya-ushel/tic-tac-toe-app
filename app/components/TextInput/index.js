@@ -4,16 +4,21 @@ import { View, TextInput as TextInputNative } from 'react-native';
 import { Label } from 'components';
 import styles from './styles';
 
-const TextInput = ({ initialValue = '', onChange }) => {
+const TextInput = ({ initialValue = '', onChangeText, style, ...props }) => {
   const [value, setValue] = useState(initialValue);
+  const onChange = value => {
+    setValue(value);
+    onChangeText(value);
+  };
 
   return (
     <View style={styles.container}>
       <TextInputNative
         value={value}
         autoCorrect={false}
-        onChangeText={setValue}
-        style={styles.input}
+        onChangeText={onChange}
+        style={[styles.input, style]}
+        {...props}
       />
     </View>
   );

@@ -7,7 +7,7 @@ import { Label, UserAvatar, Icon } from 'components';
 import { socket } from 'utils';
 import styles from './styles';
 
-const PlayersList = ({ data, gameStatus, currentPlayerId }) => {
+const PlayersList = ({ gameId, data, gameStatus, currentPlayerId }) => {
   const swiperRef = useRef();
   const user = useSelector(state => state.user.data);
   const sortedFiltredPlayers = data.sort((a, b) => a.position - b.position);
@@ -33,7 +33,7 @@ const PlayersList = ({ data, gameStatus, currentPlayerId }) => {
     const current = currentPlayerId === item.id && gameStatus !== 'created';
 
     const onTip = () => {
-      socket.emit('player.tip', item.id);
+      socket.emit('player.tip', { gameId, playerId: item.id });
     };
 
     return (
