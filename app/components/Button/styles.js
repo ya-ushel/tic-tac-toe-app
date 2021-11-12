@@ -11,7 +11,7 @@ export default StyleSheet.create({
     color: 'white',
   },
   shadow: {
-    shadowOffset: { width: 2, height: 1 },
+    shadowOffset: { width: 1, height: 1 },
     shadowRadius: 5,
     borderRadius: 4,
     position: 'absolute',

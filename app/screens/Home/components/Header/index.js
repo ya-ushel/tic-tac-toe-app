@@ -23,7 +23,17 @@ const Header = () => {
           />
           <Label style={styles.nickname}>{user?.nickname}</Label>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            // backgroundColor: '#ade8f4',
+            paddingHorizontal: 12,
+            paddingVertical: 5,
+            borderRadius: 3,
+            // borderWidth: 4,
+            // borderColor: '#0077b6',
+          }}>
           <Label style={styles.coins}>{user.coins}</Label>
           <Icon name="coins" color="#ffba08" size={18} />
         </View>

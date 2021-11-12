@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import Sound from 'react-native-sound';
 import { Shadow } from 'react-native-neomorph-shadows';
 
@@ -14,6 +14,8 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
   let margin = 6;
   margin = boardSize === 9 ? 7 : margin;
   margin = boardSize === 6 ? 8 : margin;
+  margin = boardSize === 3 ? 20 : margin;
+
   const size = width / boardSize - margin;
   //   const x = ceil.index % boardSize;
   //   const y = parseInt(ceil.index / boardSize);
@@ -86,8 +88,14 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
       // disabled={ceil.value}
       key={ceil.index}
       onPress={onPress}
-      onPressIn={() => setPressing(true)}
-      onPressOut={() => setPressing(false)}
+      onPressIn={() => {
+        console.log('onPressIn');
+        setPressing(true);
+      }}
+      onPressOut={() => {
+        console.log('onPressOut');
+        setPressing(false);
+      }}
       style={[
         styles.ceil,
         {
@@ -97,22 +105,22 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
           // borderColor: ceil.possibleMatchColor,
         },
       ]}>
-      <Shadow
-        inner // <- enable inner shadow
-        style={{
-          shadowOffset: { width: 2, height: 1 },
-          shadowOpacity: pressing && !ceil.value ? 1 : 0,
-          shadowColor: '#343a40',
-          shadowRadius: 5,
-          borderRadius: 4,
-          backgroundColor: ceil.matched ? playerCeil?.color : 'white',
-          width: size,
-          height: size,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        {!!ceil && renderShape(ceil, ceil.matched, false)}
-      </Shadow>
+      <View pointerEvents="none">
+        <Shadow
+          pointerEvents="none"
+          inner
+          style={[
+            styles.ceilShadow,
+            {
+              shadowOpacity: pressing && !ceil.value ? 1 : 0,
+              backgroundColor: ceil.matched ? playerCeil?.color : 'white',
+              width: size,
+              height: size,
+            },
+          ]}>
+          {!!ceil && renderShape(ceil, ceil.matched, false)}
+        </Shadow>
+      </View>
     </TouchableOpacity>
   );
 };

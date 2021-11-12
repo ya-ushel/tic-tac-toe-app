@@ -38,13 +38,8 @@ const Header = () => {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.container}>
-        <View style={styles.userContainer}>
-          <UserAvatar
-            backgroundColor={user?.avatarColor}
-            label={user?.nickname}
-          />
-          <Label style={styles.nickname}>{user?.nickname}</Label>
-        </View>
+        <View />
+        <Label style={styles.title}>Profile</Label>
         <TouchableOpacity onPress={onLogout}>
           <SvgIcon.Logout width={25} height={25} />
         </TouchableOpacity>

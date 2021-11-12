@@ -191,7 +191,7 @@ const CreateRoomModal = ({
           <Label style={styles.optionLabel}>Board size:</Label>
           <Select
             initialValue={values.boardSize}
-            variants={['6x6', '9x9', '12x12', '15x15']}
+            variants={['3x3', '6x6', '9x9', '12x12', '15x15']}
             onChange={value => onChange('boardSize', value)}
           />
         </View>

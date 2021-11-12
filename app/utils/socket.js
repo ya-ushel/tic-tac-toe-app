@@ -2,6 +2,7 @@ import { io } from 'socket.io-client';
 
 import store from 'store';
 import config from '../config';
+import { update } from 'store/redusers/userSlice';
 
 let socket = null;
 
@@ -25,6 +26,11 @@ const initSockets = async () => {
     socket.on('connect', () => {
       console.log('connect!', socket);
       res();
+    });
+
+    socket.on('user.updated', ({ user }) => {
+      console.log('user.updated', user);
+      store.dispatch(update(user));
     });
   });
 };

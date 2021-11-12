@@ -10,11 +10,13 @@ const CreateRoom = () => {
   return (
     <>
       <View style={styles.container}>
-        <Button
-          onPress={() => setModalVisible(true)}
-          style={styles.createButton}>
-          Create room
-        </Button>
+        <View style={styles.shadow}>
+          <Button
+            onPress={() => setModalVisible(true)}
+            style={styles.createButton}>
+            Create room
+          </Button>
+        </View>
       </View>
       <CreateRoomModal
         mode="create"

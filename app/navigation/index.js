@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
 import { tabColor, selectedTabColor } from 'constants/navigation';
@@ -67,7 +68,8 @@ class Navigator {
   }
 
   setRootWithTabs() {
-    console.log('setRootWithTabs');
+    const basicIconInsets = Platform.isPad ? 5 : 10;
+
     Navigation.setRoot({
       root: {
         bottomTabs: {
@@ -90,10 +92,10 @@ class Navigator {
                           selectedTextColor: selectedTabColor,
                           icon: require('../assets/icons/home.png'),
                           iconInsets: {
-                            top: 15,
-                            bottom: 10,
-                            left: 10,
-                            right: 10,
+                            top: basicIconInsets + 5,
+                            bottom: basicIconInsets - 5,
+                            left: basicIconInsets,
+                            right: basicIconInsets,
                           },
                         },
                       },
@@ -120,10 +122,10 @@ class Navigator {
                           selectedTextColor: selectedTabColor,
                           icon: require('../assets/icons/leaderboard.png'),
                           iconInsets: {
-                            top: 15,
-                            bottom: 8,
-                            left: 8,
-                            right: 8,
+                            top: basicIconInsets + 5,
+                            bottom: basicIconInsets - 2,
+                            left: basicIconInsets - 2,
+                            right: basicIconInsets - 2,
                           },
                         },
                       },
@@ -151,10 +153,10 @@ class Navigator {
                           selectedTextColor: selectedTabColor,
                           icon: require('../assets/icons/user.png'),
                           iconInsets: {
-                            top: 15,
-                            bottom: 10,
-                            left: 10,
-                            right: 10,
+                            top: basicIconInsets + 5,
+                            bottom: basicIconInsets,
+                            left: basicIconInsets,
+                            right: basicIconInsets,
                           },
                         },
                       },

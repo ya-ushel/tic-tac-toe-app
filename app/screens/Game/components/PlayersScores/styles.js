@@ -41,4 +41,14 @@ export default StyleSheet.create({
     color: '#ffba08',
     fontFamily: fonts.semiBold,
   },
+  playerRating: {
+    opacity: 0.6,
+  },
+  verticalSeparator: {
+    height: 15,
+    width: 1,
+    backgroundColor: '#ced4da',
+    marginHorizontal: 7,
+    opacity: 0.5,
+  },
 });

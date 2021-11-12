@@ -31,6 +31,7 @@ const PlayersList = ({ gameId, data, gameStatus, currentPlayerId }) => {
 
   const renderItem = item => {
     const current = currentPlayerId === item.id && gameStatus !== 'created';
+    const myPlayer = user.id === item.id;
 
     const onTip = () => {
       socket.emit('player.tip', { gameId, playerId: item.id });
@@ -53,7 +54,10 @@ const PlayersList = ({ gameId, data, gameStatus, currentPlayerId }) => {
               opacity: item.status === 'joined' ? 1 : 0.5,
             },
           ]}>
-          <TouchableOpacity style={{ opacity: 0.3 }} onPress={onTip}>
+          <TouchableOpacity
+            disabled={myPlayer}
+            style={{ opacity: 0.5 }}
+            onPress={onTip}>
             <UserAvatar
               backgroundColor={item.avatarColor}
               size={50}
