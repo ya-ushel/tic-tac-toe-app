@@ -31,8 +31,12 @@ export default StyleSheet.create({
     marginLeft: 10,
     fontSize: 18,
   },
+  playerTime: {
+    marginRight: 5,
+    color: '#ced4da',
+  },
   playerScore: {
-    marginRight: 10,
+    marginRight: 5,
     fontSize: 18,
     color: '#ffba08',
     fontFamily: fonts.semiBold,

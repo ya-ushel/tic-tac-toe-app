@@ -2,7 +2,7 @@ import React from 'react';
 import { View, SafeAreaView, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { UserAvatar, SvgIcon, Label } from 'components';
+import { UserAvatar, SvgIcon, Label, Icon } from 'components';
 import fonts from 'global/fonts';
 
 import styles from './styles';
@@ -42,6 +42,12 @@ const Header = ({ onBack, score }) => {
               {score}
             </Label>
           </Label>
+          {/* <Icon
+            size={15}
+            name="favorite"
+            color="#ffba08"
+            style={{ marginRight: 15 }}
+          /> */}
           <UserAvatar
             label={user?.nickname}
             backgroundColor={user?.avatarColor}

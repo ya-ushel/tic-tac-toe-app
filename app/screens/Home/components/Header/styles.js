@@ -1,5 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 
+import fonts from 'fonts';
+
 export default StyleSheet.create({
   safe: {
     backgroundColor: '#0081a7',
@@ -23,5 +25,11 @@ export default StyleSheet.create({
   nickname: {
     marginLeft: 10,
     fontSize: 16,
+  },
+  coins: {
+    color: '#ffba08',
+    marginTop: 2,
+    marginRight: 5,
+    fontFamily: fonts.semiBold,
   },
 });

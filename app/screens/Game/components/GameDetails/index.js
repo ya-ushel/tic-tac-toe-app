@@ -28,6 +28,7 @@ const GameDetails = ({ setResultsVisible, resultsVisible }) => {
         <Button
           color="gold"
           onPress={onResults}
+          value={resultsVisible}
           renderIcon={() => (
             <Icon
               style={{ paddingVertical: 5 }}

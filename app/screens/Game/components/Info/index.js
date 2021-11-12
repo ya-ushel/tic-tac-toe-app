@@ -23,10 +23,9 @@ const Info = ({
   resultsVisible,
 }) => {
   const user = useSelector(state => state.user.data);
-  const tipAnimation = useRef(new Animated.Value(150)).current;
+  const tipAnimation = useRef(new Animated.Value(165)).current;
   const [tipData, setTipData] = useState({ from: '', to: '' });
   const currentPlayer = players.find(({ id }) => id === currentPlayerId);
-  console.log('boardScale', boardScale);
 
   useEffect(() => {
     listenSocketEvents();
@@ -50,7 +49,7 @@ const Info = ({
       setTimeout(() => {
         Animated.timing(tipAnimation, {
           useNativeDriver: true,
-          toValue: 150,
+          toValue: 165,
         }).start();
       }, 1000);
     };
@@ -171,7 +170,7 @@ const Info = ({
             justifyContent: 'center',
           }}>
           <Label style={styles.tipsLabel}>50</Label>
-          {/* <Icon width={50} heigth={50} /> */}
+          <Icon name="coins" color="#ffba08" style={{ marginLeft: 3 }} />
         </View>
         <UserAvatar
           size={30}

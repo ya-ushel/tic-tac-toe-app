@@ -1,6 +1,7 @@
-import React, { useMemo, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import Sound from 'react-native-sound';
+import { Shadow } from 'react-native-neomorph-shadows';
 
 import { Icon } from 'components';
 import DickPick from 'assets/shapes/hui.jpeg';
@@ -9,6 +10,7 @@ const nextLevelSound = new Sound('next-level.mp3', Sound.MAIN_BUNDLE);
 
 const pingSound = new Sound('ping.mp3', Sound.MAIN_BUNDLE);
 const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
+  const [pressing, setPressing] = useState(false);
   let margin = 6;
   margin = boardSize === 9 ? 7 : margin;
   margin = boardSize === 6 ? 8 : margin;
@@ -17,6 +19,7 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
   //   const y = parseInt(ceil.index / boardSize);
   const playerCeil = players.find(({ shape }) => ceil.value === shape);
   const freeCeil = !ceil.value;
+
   if (ceil.matched) {
   }
 
@@ -75,24 +78,41 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
     }
   };
   if (ceil.possibleMatch) {
-    console.log('possibleMatch', ceil);
+    // console.log('possibleMatch', ceil);
   }
   return (
     <TouchableOpacity
+      activeOpacity={1}
       // disabled={ceil.value}
       key={ceil.index}
       onPress={onPress}
+      onPressIn={() => setPressing(true)}
+      onPressOut={() => setPressing(false)}
       style={[
         styles.ceil,
         {
-          backgroundColor: ceil.matched ? playerCeil?.color : 'white',
           height: size,
           width: size,
           // borderWidth: ceil.possibleMatch ? 5 : 0,
           // borderColor: ceil.possibleMatchColor,
         },
       ]}>
-      {!!ceil && renderShape(ceil, ceil.matched, false)}
+      <Shadow
+        inner // <- enable inner shadow
+        style={{
+          shadowOffset: { width: 2, height: 1 },
+          shadowOpacity: pressing && !ceil.value ? 1 : 0,
+          shadowColor: '#343a40',
+          shadowRadius: 5,
+          borderRadius: 4,
+          backgroundColor: ceil.matched ? playerCeil?.color : 'white',
+          width: size,
+          height: size,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        {!!ceil && renderShape(ceil, ceil.matched, false)}
+      </Shadow>
     </TouchableOpacity>
   );
 };

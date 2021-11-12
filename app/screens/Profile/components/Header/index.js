@@ -25,6 +25,10 @@ const Header = () => {
       avatarColor:
         config.avatarColors[getRandom(0, config.avatarColors.length)],
       nickname: 'Player' + getRandom(1000, 9999),
+      coins: 500,
+      experience: 0,
+      rating: 1000,
+      gameHistory: [],
     };
 
     await setDoc('users', userDocument.id, userDocument);

@@ -42,7 +42,7 @@ export default StyleSheet.create({
     position: 'absolute',
     right: 0,
     height: 70,
-    width: 150,
+    width: 165,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,

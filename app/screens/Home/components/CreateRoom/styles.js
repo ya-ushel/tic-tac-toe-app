@@ -8,6 +8,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: 0,
+    marginBottom: 20,
     // flex: 1,
     // alignItems: 'flex-end',
     justifyContent: 'center',

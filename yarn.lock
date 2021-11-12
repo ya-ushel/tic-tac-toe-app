@@ -1050,9 +1050,8 @@
   dependencies:
     "merge-options" "^3.0.4"
 
-"@react-native-community/art@^1.2.0":
-  "integrity" "sha512-a+ZcRGl/BzLa89yi33Mbn5SHavsEXqKUMdbfLf3U8MDLElndPqUetoJyGkv63+BcPO49UMWiQRP1YUz6/zfJ+A=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/art/-/art-1.2.0.tgz"
+"@react-native-community/art@^1.2.0", "@react-native-community/art@github:react-native-art/art":
+  "resolved" "git+ssh://git@github.com/react-native-art/art.git#e4a97cd03ec992182d326286be04b0b49267ffef"
   "version" "1.2.0"
   dependencies:
     "art" "^0.10.3"

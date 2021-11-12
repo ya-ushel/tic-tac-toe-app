@@ -40,7 +40,7 @@ const HomeScreen = ({ setScreen, setGameId }) => {
   };
 
   return (
-    <View style={{ flex: 1, marginBottom: 30 }}>
+    <View style={{ flex: 1 }}>
       <Header />
       <RoomList setScreen={setScreen} setGameId={setGameId} />
       <CreateRoom />

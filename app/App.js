@@ -7,7 +7,7 @@ import SplashScreen from 'react-native-splash-screen';
 import config from 'config';
 import { setUserOnline } from './actions/user';
 import { waitForStore, initSockets, socket } from './utils/';
-import { setDoc, signInAnonymously } from './firebase/';
+import { getDoc, setDoc, signInAnonymously } from './firebase/';
 import store from './store';
 import { login } from './store/redusers/userSlice';
 
@@ -42,9 +42,17 @@ export default class App {
           avatarColor:
             config.avatarColors[getRandom(0, config.avatarColors.length)],
           nickname: 'Player' + getRandom(1000, 9999),
+          coins: 500,
+          experience: 0,
+          rating: 1000,
+          gameHistory: [],
         };
 
         await setDoc('users', userDocument.id, userDocument);
+        store.dispatch(login(userDocument));
+      } else {
+        const userDocument = await (await getDoc('users', user.data.id)).data();
+        console.log('userDocument', userDocument);
         store.dispatch(login(userDocument));
       }
 

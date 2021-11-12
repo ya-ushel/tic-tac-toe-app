@@ -121,6 +121,7 @@ const RoomList = ({ setScreen, setGameId }) => {
     <View style={styles.container}>
       <UserRoom userRoom={userRoom} />
       <FlatList
+        contentContainerStyle={{ paddingBottom: 60 }}
         keyExtractor={(item, index) => item.name + index}
         ListHeaderComponent={() => (
           <Label style={styles.title}>All rooms</Label>
