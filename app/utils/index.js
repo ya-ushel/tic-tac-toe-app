@@ -10,7 +10,7 @@ const waitForStore = () => {
   return new Promise((res, rej) => {
     const interval = setInterval(() => {
       const { bootstrapped } = persistor.getState();
-
+      console.log('bootstrapped', persistor.getState());
       if (bootstrapped) {
         clearInterval(interval);
         res();

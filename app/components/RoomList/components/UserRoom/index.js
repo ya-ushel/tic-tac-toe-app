@@ -8,6 +8,7 @@ import {
 import { useSelector } from 'react-redux';
 
 import { socket } from 'utils';
+import Navigator from 'navigation';
 import {
   CreateRoomModal,
   Label,
@@ -19,7 +20,7 @@ import { leaveRoom } from '../../../../actions/rooms';
 
 import styles from './styles';
 
-const UserRoom = ({ userRoom, setGameId, setScreen }) => {
+const UserRoom = ({ userRoom }) => {
   const user = useSelector(state => state.user.data);
   const [userRoomExpanded, setUserRoomExpanded] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
@@ -40,8 +41,9 @@ const UserRoom = ({ userRoom, setGameId, setScreen }) => {
     !localGame && userRoom.options.players !== userRoom.users.length;
 
   const onJoin = async () => {
-    setGameId(userRoom.gameId);
-    setScreen('game');
+    Navigator.push(Navigator.activeComponentId, 'GameScreen', {
+      gameId: userRoom.gameId,
+    });
   };
 
   const toggleUserRoomExpanded = value => {
@@ -74,7 +76,7 @@ const UserRoom = ({ userRoom, setGameId, setScreen }) => {
       />
     );
   };
-  console.log('optionsValues', optionsValues);
+
   return (
     <>
       <View

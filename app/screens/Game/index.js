@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Label, Button } from 'components';
 import { socket } from 'utils';
+import Navigator from 'navigation';
 import {
   Header,
   GameDetails,
@@ -15,7 +16,7 @@ import {
 import { getGame } from 'actions/games';
 import styles from './styles';
 
-const GameScreen = ({ gameId, setScreen }) => {
+const GameScreen = ({ gameId }) => {
   const user = useSelector(state => state.user.data);
   const [game, setGame] = useState(null);
   const [joined, setJoined] = useState(false);
@@ -40,7 +41,7 @@ const GameScreen = ({ gameId, setScreen }) => {
       unsubscribeSocketEvents();
     };
   }, []);
-  console.log(gameStatus, 'gameStatus');
+
   useEffect(() => {
     if (game && myPlayer) {
       joinGame();
@@ -75,7 +76,7 @@ const GameScreen = ({ gameId, setScreen }) => {
 
   const onBack = () => {
     socket.emit('player.leave', { id: myPlayer?.id, gameId });
-    setScreen('home');
+    Navigator.pop(Navigator.activeComponentId);
   };
 
   const fetchGame = async () => {
@@ -147,6 +148,12 @@ const GameScreen = ({ gameId, setScreen }) => {
       )}
     </View>
   );
+};
+
+GameScreen.options = {
+  bottomTabs: {
+    visible: false,
+  },
 };
 
 export default GameScreen;

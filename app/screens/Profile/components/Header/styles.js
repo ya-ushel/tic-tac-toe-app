@@ -14,7 +14,7 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#0081a7',
     paddingBottom: 20,
-    paddingTop: Platform.isPad ? 20 : 10,
+    paddingTop: Platform.isPad ? 20 : 0,
   },
   userContainer: {
     flexDirection: 'row',

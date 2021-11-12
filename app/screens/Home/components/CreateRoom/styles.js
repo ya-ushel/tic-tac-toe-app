@@ -2,13 +2,14 @@ import { StyleSheet } from 'react-native';
 
 import fonts from 'fonts';
 
-const containerBackground = 'white';
+const containerBackground = 'red';
 export default StyleSheet.create({
   container: {
-    backgroundColor: containerBackground,
-    marginBottom: -10,
-    flex: 1,
-    alignItems: 'flex-end',
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    // flex: 1,
+    // alignItems: 'flex-end',
     justifyContent: 'center',
     paddingHorizontal: 20,
   },

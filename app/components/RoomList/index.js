@@ -17,6 +17,10 @@ const RoomList = ({ setScreen, setGameId }) => {
   useEffect(() => {
     getRooms();
     listenSocketEvents();
+
+    return () => {
+      unsubscribeSocketEvents();
+    };
   }, []);
 
   const listenSocketEvents = async () => {
@@ -34,6 +38,17 @@ const RoomList = ({ setScreen, setGameId }) => {
       console.log('room.user-left', data);
       getRooms();
     });
+
+    socket.on('room.started', gameId => {
+      getRooms();
+    });
+  };
+
+  const unsubscribeSocketEvents = () => {
+    socket.off('room.user-joined');
+    socket.off('room.created');
+    socket.off('room.user-left');
+    socket.off('room.started');
   };
 
   const getRooms = async () => {
@@ -104,11 +119,7 @@ const RoomList = ({ setScreen, setGameId }) => {
 
   return (
     <View style={styles.container}>
-      <UserRoom
-        userRoom={userRoom}
-        setGameId={setGameId}
-        setScreen={setScreen}
-      />
+      <UserRoom userRoom={userRoom} />
       <FlatList
         keyExtractor={(item, index) => item.name + index}
         ListHeaderComponent={() => (

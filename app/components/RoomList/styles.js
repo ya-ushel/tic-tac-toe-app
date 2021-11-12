@@ -9,7 +9,8 @@ export default StyleSheet.create({
   container: {
     // paddingHorizontal: 20,
     backgroundColor: containerBackground,
-    height: height - 180,
+    height: height - 0,
+    // flex: 1,
   },
   title: {
     fontSize: 25,

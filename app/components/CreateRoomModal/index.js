@@ -40,7 +40,7 @@ const CreateRoomModal = ({
 
   const [values, setValues] = useState(initialValues || initialState);
   const { localGame } = values;
-  console.log('values', values);
+
   const [loading, setLoading] = useState(false);
   const localPlayers = user?.localPlayers || [];
   const selectedLocalPlayers = values.localGame

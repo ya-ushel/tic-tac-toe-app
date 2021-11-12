@@ -1,5 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 
+import fonts from 'fonts';
+
 export default StyleSheet.create({
   safe: {
     backgroundColor: '#0081a7',
@@ -10,18 +12,15 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#cccccc',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     paddingHorizontal: 20,
     backgroundColor: '#0081a7',
     paddingBottom: 20,
     paddingTop: Platform.isPad ? 20 : 10,
   },
-  userContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  nickname: {
-    marginLeft: 10,
-    fontSize: 16,
+  title: {
+    fontFamily: fonts.semiBold,
+    color: 'white',
+    fontSize: 15,
   },
 });
