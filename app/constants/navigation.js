@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 
 export const defaultOptions = {
   statusBar: {
-    backgroundColor: 'black',
+    backgroundColor: '#0081a7',
   },
   topBar: {
     visible: false,

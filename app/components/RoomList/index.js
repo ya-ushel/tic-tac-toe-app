@@ -23,6 +23,10 @@ const RoomList = ({ setScreen, setGameId }) => {
     };
   }, []);
 
+  useEffect(() => {
+    getRooms();
+  }, [user]);
+
   const listenSocketEvents = async () => {
     socket.on('room.created', data => {
       console.log('room.created', data);
@@ -71,7 +75,7 @@ const RoomList = ({ setScreen, setGameId }) => {
     return (
       <UserAvatar
         key={player.id}
-        label="P"
+        label={player.nickname?.length ? player.nickname[0] : 'P'}
         backgroundColor={player.avatarColor}
         style={styles.roomPlayerAvatar}
         labelStyle={{ fontSize: 12 }}
@@ -121,7 +125,7 @@ const RoomList = ({ setScreen, setGameId }) => {
     <View style={styles.container}>
       <UserRoom userRoom={userRoom} />
       <FlatList
-        contentContainerStyle={{ paddingBottom: 60 }}
+        contentContainerStyle={{ paddingTop: 10, paddingBottom: 60 }}
         keyExtractor={(item, index) => item.name + index}
         ListHeaderComponent={() => (
           <Label style={styles.title}>All rooms</Label>

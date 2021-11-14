@@ -33,4 +33,5 @@ export function registerScreens() {
   for (let key in screens) {
     Navigation.registerComponent(key, () => WrappedComponent(screens[key]));
   }
+  console.log('registerScreens done');
 }

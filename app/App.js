@@ -5,7 +5,6 @@ import { persistStore } from 'redux-persist';
 import SplashScreen from 'react-native-splash-screen';
 
 import config from 'config';
-import { setUserOnline } from './actions/user';
 import { waitForStore, initSockets, socket } from './utils/';
 import { getDoc, setDoc, signInAnonymously } from './firebase/';
 import store from './store';
@@ -26,6 +25,7 @@ export default class App {
 
   async onAppLaunched() {
     try {
+      console.log('onAppLaunched');
       await waitForStore();
 
       const { user } = store.getState();
@@ -59,7 +59,6 @@ export default class App {
       await initSockets();
       // await listenSockets();
 
-      setUserOnline();
       await Navigation.setDefaultOptions(defaultOptions);
       this.setRoot(true);
       SplashScreen.hide();
@@ -69,12 +68,12 @@ export default class App {
   }
 
   async start() {
-    persistStore(store, null, () => {
-      registerScreens();
+    Navigation.events().registerAppLaunchedListener(() => {
+      persistStore(store, null, () => {
+        registerScreens();
 
-      Navigation.events().registerAppLaunchedListener(() =>
-        this.onAppLaunched(),
-      );
+        this.onAppLaunched();
+      });
     });
   }
 }

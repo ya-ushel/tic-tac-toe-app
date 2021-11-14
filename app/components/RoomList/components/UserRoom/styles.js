@@ -13,6 +13,23 @@ export default StyleSheet.create({
     paddingVertical: 10,
     fontFamily: fonts.semiBold,
   },
+  container: {
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.2,
+    elevation: 5,
+  },
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 20,
+  },
   roomContainerShadow: {
     backgroundColor: containerBackground,
   },
@@ -24,9 +41,11 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 3.2,
+    elevation: 5,
     width: '100%',
     height: 5,
     paddingBottom: 10,
+    marginTop: 10,
     backgroundColor: containerBackground,
   },
   roomContainer: {

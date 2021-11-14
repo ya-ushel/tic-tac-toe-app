@@ -50,6 +50,7 @@ const PlayersList = ({ gameId, data, gameStatus, currentPlayerId }) => {
           style={[
             styles.playerContainer,
             {
+              borderColor: item.color,
               backgroundColor: item.color,
               opacity: item.status === 'joined' ? 1 : 0.5,
             },

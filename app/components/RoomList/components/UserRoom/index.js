@@ -68,7 +68,7 @@ const UserRoom = ({ userRoom }) => {
     return (
       <UserAvatar
         key={player.id}
-        label="P"
+        label={player.nickname?.length ? player.nickname[0] : 'P'}
         backgroundColor={player.avatarColor}
         style={styles.roomPlayerAvatar}
         labelStyle={{ fontSize: 12 }}
@@ -78,15 +78,8 @@ const UserRoom = ({ userRoom }) => {
   };
 
   return (
-    <>
-      <View
-        style={{
-          alignSelf: 'stretch',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingRight: 20,
-        }}>
+    <View style={styles.container}>
+      <View style={styles.topContainer}>
         <Label style={styles.yourRoomTitle}>{userRoom.name}</Label>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {userRoomExpanded ? (
@@ -130,8 +123,13 @@ const UserRoom = ({ userRoom }) => {
                 justifyContent: 'space-between',
                 flexDirection: 'row',
                 paddingHorizontal: 20,
+                marginBottom: 10,
               }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
                 <Button
                   color="red"
                   style={{ marginRight: 10 }}
@@ -163,7 +161,7 @@ const UserRoom = ({ userRoom }) => {
             </View>
           </>
         )}
-        <View style={styles.shadow} />
+        {/* <View style={styles.shadow} /> */}
       </View>
       <CreateRoomModal
         mode="edit"
@@ -172,7 +170,7 @@ const UserRoom = ({ userRoom }) => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />
-    </>
+    </View>
   );
 };
 

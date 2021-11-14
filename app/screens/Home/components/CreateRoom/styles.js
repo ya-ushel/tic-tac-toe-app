@@ -17,6 +17,7 @@ export default StyleSheet.create({
   createButton: {
     paddingVertical: 10,
     paddingHorizontal: 15,
+    elevation: 5,
   },
   modal: {
     backgroundColor: '#62b6cb',

@@ -18,7 +18,6 @@ export default StyleSheet.create({
     // paddingLeft: 15,
     paddingVertical: 10,
     borderWidth: 5,
-    borderColor: 'transparent',
 
     shadowColor: '#000',
     shadowOffset: {

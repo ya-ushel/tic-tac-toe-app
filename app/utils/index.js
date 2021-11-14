@@ -19,4 +19,8 @@ const waitForStore = () => {
   });
 };
 
-export { axios, socket, initSockets, waitForStore };
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
+
+export { axios, socket, initSockets, waitForStore, wait };
