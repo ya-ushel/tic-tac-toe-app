@@ -7,3 +7,4 @@ export { default as TextInput } from './TextInput/';
 export { default as Select } from './Select/';
 export { default as Icon } from './Icon/';
 export { default as CreateRoomModal } from './CreateRoomModal/';
+export { default as GameRules } from './GameRules/';

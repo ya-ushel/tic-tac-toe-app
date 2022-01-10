@@ -13,7 +13,7 @@ const Header = () => {
     <SafeAreaView style={styles.safe}>
       <View style={styles.container}>
         <View />
-        <Label style={styles.title}>Profile</Label>
+        <Label style={styles.title}>My profile</Label>
         <View />
       </View>
     </SafeAreaView>

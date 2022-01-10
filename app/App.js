@@ -15,20 +15,20 @@ import Navigator from './navigation';
 import { defaultOptions } from './constants/navigation';
 
 export default class App {
-  async setRoot(isAuthorized) {
-    if (true) {
-      await Navigator.setRootWithTabs();
+  async setRoot(sawIntro) {
+    if (sawIntro) {
+      Navigator.setRootWithTabs();
     } else {
-      await Navigator.setRoot('AuthScreen');
+      Navigator.setRoot('IntroScreen');
     }
   }
 
   async onAppLaunched() {
     try {
-      console.log('onAppLaunched');
       await waitForStore();
 
       const { user } = store.getState();
+      console.log('onAppLaunched', user.data);
 
       if (!user.data) {
         const { user: newUser } = await signInAnonymously();
@@ -60,7 +60,7 @@ export default class App {
       // await listenSockets();
 
       await Navigation.setDefaultOptions(defaultOptions);
-      this.setRoot(true);
+      this.setRoot(user.sawIntro);
       SplashScreen.hide();
     } catch (error) {
       console.log('init error', error);

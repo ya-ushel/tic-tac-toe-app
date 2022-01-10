@@ -4,13 +4,24 @@ import Sound from 'react-native-sound';
 import { Shadow } from 'react-native-neomorph-shadows';
 
 import { Icon } from 'components';
+import SnowPic from 'assets/icons/snow.png';
+
 import DickPick from 'assets/shapes/hui.jpeg';
 import styles from './styles';
-const nextLevelSound = new Sound('next-level.mp3', Sound.MAIN_BUNDLE);
 
+const nextLevelSound = new Sound('next-level.mp3', Sound.MAIN_BUNDLE);
 const pingSound = new Sound('ping.mp3', Sound.MAIN_BUNDLE);
-const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
+const Ceil = ({
+  loading,
+  myPlayerId,
+  ceil,
+  width,
+  players,
+  makeMove,
+  boardSize,
+}) => {
   const [pressing, setPressing] = useState(false);
+
   let margin = 6;
   margin = boardSize === 9 ? 7 : margin;
   margin = boardSize === 6 ? 8 : margin;
@@ -25,7 +36,7 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
   if (ceil.matched) {
   }
 
-  const onPress = () => {
+  const onPress = async () => {
     if (!freeCeil) {
       if (pingSound.isPlaying) {
         pingSound.stop();
@@ -60,10 +71,10 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
 
     // return <Label>{shape}</Label>;
 
-    if (isDick && value) {
+    if (isDick) {
       return (
         <Image
-          source={DickPick}
+          source={SnowPic}
           style={{ width: size, height: size, borderRadius: 5 }}
         />
       );
@@ -85,7 +96,7 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
   return (
     <TouchableOpacity
       activeOpacity={1}
-      // disabled={ceil.value}
+      // disabled={loading}
       key={ceil.index}
       onPress={onPress}
       onPressIn={() => {
@@ -113,12 +124,13 @@ const Ceil = ({ myPlayerId, ceil, width, players, makeMove, boardSize }) => {
             styles.ceilShadow,
             {
               shadowOpacity: pressing && !ceil.value ? 1 : 0,
-              backgroundColor: ceil.matched ? playerCeil?.color : 'white',
+              // backgroundColor: ceil.matched ? playerCeil?.color : 'white',
+              backgroundColor: '#4895ef',
               width: size,
               height: size,
             },
           ]}>
-          {!!ceil && renderShape(ceil, ceil.matched, false)}
+          {!!ceil && renderShape(ceil, ceil.matched, true)}
         </Shadow>
       </View>
     </TouchableOpacity>
@@ -130,6 +142,7 @@ function areEqual(prevProps, nextProps) {
     prevProps?.ceil?.value === nextProps?.ceil?.value &&
     prevProps?.ceil?.matched === nextProps?.ceil?.matched &&
     prevProps?.myPlayerId === nextProps?.myPlayerId
+    // && prevProps?.loading === nextProps.loading
   );
 }
 

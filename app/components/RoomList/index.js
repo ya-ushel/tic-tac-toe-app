@@ -9,7 +9,7 @@ import Button from '../Button';
 import styles from './styles';
 import { UserRoom } from './components/';
 
-const RoomList = ({ setScreen, setGameId }) => {
+const RoomList = () => {
   const [userRoom, setUserRoom] = useState(null);
   const [rooms, setRooms] = useState([]);
 

@@ -1,10 +1,11 @@
-import React, { createRef, useEffect } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import { View, Dimensions } from 'react-native';
 import { useSelector } from 'react-redux';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 
 import { Label, Icon } from 'components';
-import { socket } from 'utils';
+import { wait, socket } from 'utils';
+
 import { Ceil } from '../';
 import styles from './styles';
 
@@ -22,6 +23,8 @@ const Board = ({
 }) => {
   const user = useSelector(state => state.user.data);
   const zoomableViewRef = createRef();
+  const [loading, setLoading] = useState(false);
+
   const myPlayer = players.find(({ id }) =>
     localGame ? id === currentPlayerId : user.id === id,
   );
@@ -35,15 +38,21 @@ const Board = ({
   }, [zoomableViewRef]);
 
   const renderCeil = (ceil, index) => {
-    const makeMove = playerId => {
+    const makeMove = async playerId => {
+      setLoading(true);
+
       socket.emit('player.make-move', {
         id: playerId,
         gameId,
         ceilIndex: ceil.index,
       });
+
+      // await wait(500);
+      setLoading(false);
     };
     return (
       <Ceil
+        loading={loading}
         key={ceil.index}
         gameId={gameId}
         myPlayerId={myPlayerId}

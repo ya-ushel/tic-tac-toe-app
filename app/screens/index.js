@@ -6,6 +6,7 @@ import HomeScreen from './Home';
 import GameScreen from './Game';
 import LeaderboardScreen from './Leaderboard';
 import ProfileScreen from './Profile';
+import IntroScreen from './Intro';
 
 import store from 'store';
 
@@ -14,6 +15,7 @@ const screens = {
   HomeScreen,
   LeaderboardScreen,
   ProfileScreen,
+  IntroScreen,
 };
 
 function WrappedComponent(Component) {

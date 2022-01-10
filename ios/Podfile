@@ -16,6 +16,8 @@ target 'TicTacToe' do
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
+  pod 'react-native-randombytes', :path => '../node_modules/react-native-randombytes'
+
   target 'TicTacToeTests' do
     inherit! :complete
     # Pods for testing

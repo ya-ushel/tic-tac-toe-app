@@ -10,9 +10,11 @@ import Navigator from 'navigation';
 
 import { Header, CreateRoom } from './components/';
 
-const HomeScreen = ({ setScreen, setGameId }) => {
+const HomeScreen = () => {
   const user = useSelector(state => state.user.data);
   const dispatch = useDispatch();
+
+  console.log('HomeScreenHomeScreen');
 
   useEffect(() => {
     listenSockets();
@@ -35,14 +37,10 @@ const HomeScreen = ({ setScreen, setGameId }) => {
     socket.off('room.started');
   };
 
-  const onLogin = () => {
-    dispatch(login());
-  };
-
   return (
     <View style={{ flex: 1 }}>
       <Header />
-      <RoomList setScreen={setScreen} setGameId={setGameId} />
+      <RoomList />
       <CreateRoom />
     </View>
   );

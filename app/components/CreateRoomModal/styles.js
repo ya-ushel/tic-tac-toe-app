@@ -17,7 +17,7 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
   },
   modal: {
-    backgroundColor: '#e0fbfc',
+    backgroundColor: 'white',
     alignItems: 'flex-start',
     paddingVertical: 20,
     marginHorizontal: -20,
@@ -25,6 +25,14 @@ export default StyleSheet.create({
     marginBottom: -20,
     paddingBottom: 100,
     borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    elevation: 5,
   },
   modalTitle: {
     fontSize: 18,
