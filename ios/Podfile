@@ -17,6 +17,10 @@ target 'TicTacToe' do
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
   pod 'react-native-randombytes', :path => '../node_modules/react-native-randombytes'
+  
+  pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
+  pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
+  pod 'RCTTypeSafety', :path => "../node_modules/react-native/Libraries/TypeSafety"
 
   target 'TicTacToeTests' do
     inherit! :complete

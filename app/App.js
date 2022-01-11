@@ -13,10 +13,10 @@ import { login } from './store/redusers/userSlice';
 import { registerScreens } from './screens';
 import Navigator from './navigation';
 import { defaultOptions } from './constants/navigation';
-
+console.log('appappappappappappappapp');
 export default class App {
   async setRoot(sawIntro) {
-    if (sawIntro) {
+    if (!sawIntro) {
       Navigator.setRootWithTabs();
     } else {
       Navigator.setRoot('IntroScreen');
@@ -68,9 +68,12 @@ export default class App {
   }
 
   async start() {
+    console.log('222222222');
+
     Navigation.events().registerAppLaunchedListener(() => {
       persistStore(store, null, () => {
         registerScreens();
+        console.log('3333333');
 
         this.onAppLaunched();
       });

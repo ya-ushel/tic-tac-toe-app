@@ -1,3 +1,4 @@
+import Moralis from 'moralis';
 import axios from '../utils/axios';
 
 const getLeaders = async () => {
@@ -12,4 +13,21 @@ const getLeaders = async () => {
   }
 };
 
-export { getLeaders };
+async function loginViaMoralis(connector) {
+  let user = Moralis.User.current();
+  if (!user) {
+    user = await Moralis.authenticate({
+      connector,
+      signingMessage: 'Log in using Moralis',
+    })
+      .then(function (user) {
+        console.log('logged in user:', user);
+        console.log(user.get('ethAddress'));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+}
+
+export { getLeaders, loginViaMoralis };
